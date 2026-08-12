@@ -1,0 +1,77 @@
+
+
+
+                ''''''''''PLAYWRIGHT KEYWORDS TO REMEMBER''''''''''''''
+
+
+1. fixture
+2. scope = function, class, module, session
+3. def ( to define method, function )
+4. test_function_name
+5. test_python_file_name_to_treat_as_test_suites
+6. conftest.py ( universal file to call in wanted test scenarios)
+7. @pytest.mark.smoke_test_tag_name
+8. @pytest.mark.skip (to skip a test)
+(9)  if we want to run a particular file in out terminal, we can just navigate to that folder
+# in terminal  and put "pytest fileName" then it will run the file for example
+# "pytest test_Lecture_28_PyTest_Assert_With_Fixtures_Conf_File.py" -> terminal will run this file
+
+(10) If you want to run a specific test case from a file use the following instruction
+# "pytest test_Lecture_28_PyTest_Assert_With_Fixtures_Conf_File.py::test_the_assertion_case_02"
+
+(11) If you want the output do the following
+# "pytest test_Lecture_28_PyTest_Assert_With_Fixtures_Conf_File.py::test_the_assertion_case_02 -s"
+
+(12) "@pytest.mark.skip" annotation above any test cases, will skip that test case when execution
+3   is carried out
+
+(13) "@pytest.mark.any_tag_name_to_run_in_group" if we want to perform for example smoke,
+#  regression tests, we can put this mark in multiple test cases to run in group such as
+# "@pytest.mark.nazmul_smoke_test" we put this in the test cases and run in terminal by putting
+# " pytest -m nazmul_smoke_test"
+
+14)   browser = playwright.chromium.launch(headless=False)
+#     context = browser.new_context()
+#     page = context.new_page()
+15) page.goto("")
+16. get_by_label()
+17. fill()
+18. get_by_role()
+19. check()
+20. select_option()
+21. button
+22. name=
+23. locator()
+24. link
+25. test_run_in_fire_fox_03(playwright: Playwright):
+26. firefox_browser = playwright.firefox.launch(headless=False).new_context().new_page()
+27. test_with_valid_credential_01(page: Page):
+28. sleep()
+29. expect(locator_details)
+30. get_by_text()
+31. filter()
+32. has_text()
+33. to_have_count()
+34. click()
+35. #id_name
+36. .class_name
+37. tag_name.class_name
+38. with page.expect_popup() as new_child_page_info:
+39. child_page = new_child_page_info.value
+40. text_content()
+41. email_address = text.split("at")[1].strip().split(" ")[0]
+42. assert
+43. get_by_placeholder()
+44. to_be_visible()
+45. not_to_be_visible()
+46. page.on()
+47. event
+48. dialog
+49. lambda
+50. dialog.accept()
+51. to_contain_text()
+52. codegen
+
+
+
+

@@ -1,0 +1,14 @@
+{
+  "user_credentials_from_json_data_file" : [
+    {
+      "user_email": "nazmul2811@diu.edu.bd",
+      "user_password": "Rh@r12345512"
+
+
+    },
+    {
+      "user_email": "anshika@gmail.com",
+      "user_password": "Iamking@000"
+    }
+  ]
+}

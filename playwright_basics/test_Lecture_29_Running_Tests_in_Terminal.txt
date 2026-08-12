@@ -1,0 +1,17 @@
+#   (1)  if we want to run a particular file in out terminal, we can just navigate to that folder
+# in terminal  and put "pytest fileName" then it will run the file for example
+# "pytest test_Lecture_28_PyTest_Assert_With_Fixtures_Conf_File.py" -> terminal will run this file
+
+#   (2) If you want to run a specific test case from a file use the following instruction
+# "pytest test_Lecture_28_PyTest_Assert_With_Fixtures_Conf_File.py::test_the_assertion_case_02"
+
+#   (3) If you want the output do the following
+# "pytest test_Lecture_28_PyTest_Assert_With_Fixtures_Conf_File.py::test_the_assertion_case_02 -s"
+
+#   (4) "@pytest.mark.skip" annotation above any test cases, will skip that test case when execution
+3   is carried out
+
+#   (5) "@pytest.mark.any_tag_name_to_run_in_group" if we want to perform for example smoke,
+#  regression tests, we can put this mark in multiple test cases to run in group such as
+# "@pytest.mark.nazmul_smoke_test" we put this in the test cases and run in terminal by putting
+# " pytest -m nazmul_smoke_test"

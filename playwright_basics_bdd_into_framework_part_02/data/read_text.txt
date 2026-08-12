@@ -1,0 +1,2 @@
+ This is a line coming from this file.
+ I will read everything present in this file from console.
