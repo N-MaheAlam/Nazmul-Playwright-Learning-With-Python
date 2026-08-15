@@ -64,7 +64,7 @@
 43. get_by_placeholder()
 44. to_be_visible()
 45. not_to_be_visible()
-46. page.on()
+46. page.on() [ To capture the javascript pop ]
 47. event
 48. dialog
 49. lambda

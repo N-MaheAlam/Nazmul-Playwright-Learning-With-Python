@@ -16,14 +16,17 @@ class APIValidationFirstClass:
 
     def token_for_login_details(self, playwright: Playwright):
         # to call chrome, firefox we used chromium or firefox after "playwright" but when
-        # we want to validate api, we use "request". Then "new_context(), connecting us with the server,
-        # and we provide our arguments inside the parameter such as ["base-url" = The url of the main page
+        # we want to validate through api, we use "request". Then "new_context(),
+        # connecting us with the server.
+        # and we provide our arguments inside the parameter such as ["base_url" = The url of the main page
+        # Now, what kind of request we are making, GET,POST, UPDATE, DELETE?
+        # that we need to provide. See "login_request_url.post"
         # we do not use new_page() as we are not opening any page here, but we are getting,posting, putting,
         #  or updating in APIs. that's why we use post
         # REMEMBER ------
         # "https://rahulshettyacademy.com//api/ecom/auth/login" in this whole url,
-        # the base url is "https://rahulshettyacademy.com" and rest "/api/ecom/auth/login" we call
-        # it as "resources"
+        # the base url is "https://rahulshettyacademy.com" which is the server url
+        # and rest "/api/ecom/auth/login" we call it as "resources"
         login_request_url = playwright.request.new_context(base_url="https://rahulshettyacademy.com")
         # Now, we will post our request providing the "resources" url, then data we are parsing
         # "login_payload" variable
@@ -33,7 +36,7 @@ class APIValidationFirstClass:
         # Grab the response body in json format once we logged in successfully
         login_response_body = login_response.json()
         # print in console
-        print(" Log in successful and response: ", login_response_body)
+        print(" \nLog in successful and response: ", login_response_body)
         # As the response is in json format, it's a dictionary, and we are extracting the value
         # of index name "token" from the json response and returning in this function
         return login_response_body["token"]
