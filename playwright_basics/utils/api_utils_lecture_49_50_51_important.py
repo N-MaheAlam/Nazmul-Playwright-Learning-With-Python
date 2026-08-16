@@ -76,9 +76,15 @@ class APIValidationFirstClass:
         # "productOrderId", "message"
         print("Order Placed thorough API: ", response_create_order.json())
         # If you notice in console after calling the test function "test_e2e_web_api_check" in file
-        # "test_lecture_58_59_60_data_calling_from_json_file_e2e_important.py" you will see the response is in json
-        # which is in dictionary format. Inside the dictionary "values" are in list format
-        # --- [] -> list , {} - dictionary, () -> tuple
+        # "test_lecture_58_59_60_data_calling_from_json_file_e2e_important.py" you will see the response is
+        # in json which is in dictionary format. Inside the dictionary "values" are in list format
+        # list -> ["value1", "value2", "value2"]  ,
+        # dictionary -> {"key1": "value4", "key2": "value5"],
+        # tuple -> ("value1", "value2","value3")
+        # But here the response is below format
+        # {'orders': ['6a7f842721054ba465d3b118']...} means , it's a dictionary where key is "orders"
+        # and values are in list format but for each key just one list value means the value is in
+        # index 0 according to the list rules
         # in the list there only one value for each key, and these values are present in index 0,
         # which I am collecting only for "order" key
         order_id = response_create_order.json()["orders"][0]

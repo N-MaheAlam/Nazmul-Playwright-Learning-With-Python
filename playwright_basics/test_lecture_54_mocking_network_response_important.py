@@ -1,9 +1,9 @@
 # ------------- Lecture 53 -----------------
 # when we go to https://rahulshettyacademy.com/client/#/dashboard/myorders after log in I mean
-# when we log in than go to the orders page we have already orders. However, If there is no order
+# when we log in then go to the orders page we have already orders. However, If there is no order
 # then the UI should show a message like " There is no order come back later please".
 # Now, we do not want to remove our orders from the order page but to show this message. How could we
-# show that. That's where we will mock the response ( give a made response that will trigger
+# show that? That's where we will mock the response ( give a made response that will trigger
 # you have no order page but order will be there. But when we will test it will show the UI
 #  how will look it there is no response )from the network
 import time
