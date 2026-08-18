@@ -26,7 +26,7 @@ def test_view_oder_users_order_that_blocks_this_user_to_view(page: Page):
     # "https://rahulshettyacademy.com/api/ecom/order/get-orders-details?id=*" and the "route" grabs it's
     # and follows the "get_the_order_id_of_another_user" function. In previous lecture what we did?
     # we did like we got the order details response from the server, but we change it and send our
-    # made response that browser thought came from server and generated no orders html page. but here
+    # made response [mock] that browser thought came from server and generated no orders html page. but here
     # When customer clicks on view the order for a specific order it generates a link
     # "https://rahulshettyacademy.com/api/ecom/order/get-orders-details?id= exact_order_id_for_that
     # _customer" with the order of that
@@ -37,7 +37,7 @@ def test_view_oder_users_order_that_blocks_this_user_to_view(page: Page):
     # which will help to pop up the below html in server
     # " You do not have authorization for this order"
     # Final means before it reaches server we are mocking and in last lecture we mocked the response
-    # that we got from server
+    # that we got from server.
     page.get_by_role("button", name="View").first.click()
     unauthorised_message = page.locator(".blink_me").text_content()
     print(unauthorised_message)

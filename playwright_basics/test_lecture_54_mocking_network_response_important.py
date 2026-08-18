@@ -1,13 +1,12 @@
 # ------------- Lecture 53 -----------------
-# when we go to https://rahulshettyacademy.com/client/#/dashboard/myorders after log in I mean
-# when we log in then go to the orders page we have already orders. However, If there is no order
+# when we go to https://rahulshettyacademy.com/client/#/dashboard/myorders, we might see our
+#  orders list on that web page. However, If there is no order
 # then the UI should show a message like " There is no order come back later please".
 # Now, we do not want to remove our orders from the order page but to show this message. How could we
 # show that? That's where we will mock the response ( give a made response that will trigger
 # you have no order page but order will be there. But when we will test it will show the UI
 #  how will look it there is no response )from the network
 import time
-
 
 # ------------- Lecture 54 sending mock response as if it is sent by server as response -----------------
 
@@ -28,7 +27,11 @@ mock_network_response_data = {"data": [], "message": "No Orders"}
 
 
 def intercept_mocking_the_network_by_using_fake_response_from_server(route: Route):
-    # when we click on "ORDERS" server provides all the order list in json format and browser collects
+    # [[[[[[[[[[[   Check the comments first of the below function
+    # " test_mocking_network_and_get_response_of_empty_order_but_actual_there_is_order"]]]]]]]]]
+
+    # when we click on "ORDERS" on that specific website that we are using ,
+    # server provides all the order list in json format and browser collects
     # it and arrange the html of order list. However, in the response of server which are nothing but
     # order list in json format, we are mocking means,telling the browser that server gives us this
     # repose "mock_network_response_data = {"data": [], "message": "No Orders"}" and fulfill my request.
@@ -39,6 +42,15 @@ def intercept_mocking_the_network_by_using_fake_response_from_server(route: Rout
 
 
 def test_mocking_network_and_get_response_of_empty_order_but_actual_there_is_order(page: Page):
+    # When we want to change our response from server but not in main UI
+    # and want to give fake payload [ fake json to the server thorough API ]to the server so that we have
+    # a different response which will create a different html UI in Web UI] and so on, we use
+    # the "route". route is nothing but listens for a specific Url. Once it gets the url, it sends to
+    # an event ( the 2nd argument or route). We create a method of that event and perform the request
+    # we want to do such as "fulfill" means when we will link on the order button then fulfill the
+    #  json response of [[[ {"data": [], "message": "No Orders"}]]] means act as this you got
+    #  from the server, not the actual order list response from the server.
+    #
     # So the route listening the tests and when it founds any link like below format, it goes to the
     # event "intercept_mocking_the_network_by_using_fake_response_from_server" which is a function
     # the "*" in link means after the "get-orders-for-customer/" resource there can be anything but when

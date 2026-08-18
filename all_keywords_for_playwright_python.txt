@@ -71,6 +71,34 @@
 50. dialog.accept()
 51. to_contain_text()
 52. codegen
+53. to_have_text()
+54. request
+55. new_context()
+56. post
+57. base_url
+58. url
+59. data
+60. headers
+61. authorization
+62. content_type()
+63. self
+64. route
+65. fulfill() [ we use this in response level from the server. for example, from the server, we are
+                getting order list as a json response, but instead of that json response from the server
+                we are giving a different json, which our website will think that it is the response
+                from the server and will create web page based on that ]
+66. json =
+67. event [ network response event handler I mean method that we call to mock the response]
+68. strip()
+69. split()
+70. url.com/* [ means doesn't matter what is the resources for the base_url "url.com"
+70. route.continue [ forcing our UI to hit the server with the URL that we have provided that means
+                    requesting the server with this mock url and give response based on that
+                    requirement or url whatever you say but on route we modified that response
+                    that we got from the server and instructed the UI to provide UI or results
+                    based on that response]
+71. add_init_script()
+
 
 
 
