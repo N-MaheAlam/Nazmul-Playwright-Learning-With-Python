@@ -85,7 +85,10 @@ with open(data_file) as f:
 
 
 # This a parameterized fixture details where the name of the parameter is 'each_user_credential_fixture'
-# and it's getting the value from "user_data" (login details)
+# and it's getting the value from "user_data" (login details). I am telling that my method
+# "test_e2e_web_api_check" needs a parameter fixture which will extract value from the "user_data".
+# That means the data this parameter collects from the "user_data" and store and use it in our
+# fixture "each_user_credential_fixture"
 @pytest.mark.parametrize('each_user_credential_fixture', users_data)
 # This text has 2 parameter one is playwright as we know already and on is fixture coming from
 # "the conftest.py" file. Go and check the 'conftest.py" for more details

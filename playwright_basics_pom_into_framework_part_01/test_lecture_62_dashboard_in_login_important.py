@@ -109,13 +109,19 @@ def test_e2e_web_api_check(playwright: Playwright, each_user_credential_fixture)
 
     # calling the "navigate_to_login_page" from "LoginPage" class to navigate to the url
     login_page.navigate_to_login_page()
-    # Once we call the login function, it lands into dashboard page and we create a variable
+    # Once we call the login function, it lands into dashboard page, and we create a variable
     # which type is "DashBoard" as we have returned a "dashboard" type object when click the log in
     # check the function "provide_username_password_and_click_log_in" in "LoginPage" Class
     dashboard_page_landing_from_login = (
         login_page.provide_username_password_and_click_log_in(email, password))
 
+    # After clicking the dashboard ORDERS button it lands on order history page and that clicking
+    # order button method returns an order history page type object. That's why we have captured
+    # the order history page return type and stored in "order_history_page" variable.
     order_history_page = dashboard_page_landing_from_login.click_on_order_button()
+    # When we click on a specific order to verify it lands on orders details page and that is why
+    # when it clicks on that order details button we wre returning the order details page POM
+    # and capturing in "order_details_page" variable
     order_details_page = order_history_page.view_the_actual_order_details(order_id)
     order_details_page.verify_the_thank_you_message()
     time.sleep(1)

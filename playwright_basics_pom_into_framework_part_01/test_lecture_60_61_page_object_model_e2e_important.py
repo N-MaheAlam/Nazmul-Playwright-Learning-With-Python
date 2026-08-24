@@ -18,10 +18,10 @@ from playwright_basics_pom_into_framework_part_01.utils.api_utils_lecture_49_50_
 
 # --------------------- Lecture 58 no hard coding and calling data from json files -------------------
 
-# In our code there should be no data like username, password, locator's tag name, class name etc.
+# In our code, there should be no data like username, password, locator's tag name, class name etc.
 # what we will do we will create a json file from which we will call the data that we need. Data can be
 # stored in json files, Excel files and xml files which we can bring in our test in run time.
-# However, json is the popular as software developers creates apis by which they call something from
+# However, json is the popular as software developers creates APIs by which they call something from
 # server and display in browser in html format.
 
 # Now, we will create a directory name "data" inside our project file
@@ -56,37 +56,44 @@ The above code we can say like this way
 '''
 # storing our json file as "data_file" by giving the path
 data_file = Path(__file__).parent / "data" / "user_details.json"
-# open the file as an object "f"
+# opening the  json file as an object "f"
 with open(data_file) as f:
-    # we are converting this json sets using load to treat is as a python object, making access to
-    # its data
+    # we are converting this json sets using load to treat is as a python object, making accessible to
+    # its data for our python code
     converting_json_data_into_python_object = json.load(f)
     # printing the json file data in our console
     print(converting_json_data_into_python_object)
 
     # --------------------- Lecture 59 callings values from json for multiple log in -------------------
 
-    # collection the login details for the multiple users from the key
+    # collecting the login details for the multiple users from the key
     # "user_credentials_from_json_data_file" in "user_details.json" file
     # my target is that no matter how many user details are there, my test will run for
     # each user. If there are 10 users emails and passwords, it will run for 10 times.
-    # If you see the "user_details.json" file in a bigger picture It's a dictionary,
-    # however, inside dictionary there is a list "user_credentials_from_json_data_file" and this
-    # list has indexes are in  dictionary format "{
-    #       "user_email": "nazmul2811@diu.edu.bd",  ///////   { key : values }
-    #       "user_password": "Rh@r12345512"
+    # If you see the "user_details.json" file in a bigger picture It's a dictionary{},
+    # which has key "user_credentials_from_json_data_file" and this key has a list[] with multiple
+    # values in each index [ { userDetail01 }, {userDetails02}]. Inside the list there is also
+    # dictionary with keys "user_email" and "user_password"
+    #           [   {"user_email": "nazmul2811@diu.edu.bd",
+    #               "user_password": "Rh@r12345512"
+    #
+    #                  }, {
+    #       "user_email": "anshika@gmail.com",
+    #       "user_password": "Iamking@000"
     #     }
-    # that means the hierarchy is like this list -> dictionary inside - again list inside dictionary
+    # So the hierarchy is like below
+    # {Parent dictionary : list[{dictionary01}, {dictionary02} -listened] - Parent dictionaryEnd}
 
     # Now, in below line, we are just taking the value of key
-    # "user_credentials_from_json_data_file". Inside this key, there also dictionary and inside
-    # dictionary also list which I already talked about. Storing those credentials in
+    # "user_credentials_from_json_data_file". Inside this key, there also list and inside
+    # list, there are also dictionary which I already talked about. Storing those credentials in
     # "user_data"
     users_data = converting_json_data_into_python_object["user_credentials_from_json_data_file"]
 
 
 # This a parameterized fixture details where the name of the parameter is 'each_user_credential_fixture'
-# and it's getting the value from "user_data" (login details)
+# and it's requesting and getting the value from "user_data" by request parameter in fixture
+# (login details)
 @pytest.mark.parametrize('each_user_credential_fixture', users_data)
 # This text has 2 parameter one is playwright as we know already and on is fixture coming from
 # "the conftest.py" file. Go and check the 'conftest.py" for more details
@@ -94,8 +101,12 @@ def test_e2e_web_api_check(playwright: Playwright, each_user_credential_fixture)
     email = each_user_credential_fixture["user_email"]
     password = each_user_credential_fixture["user_password"]
     page = playwright.chromium.launch(headless=False).new_context().new_page()
-    # creating an object for login page and this "LoginPage" takes this test's "page" as an argument
-    # and sending to its class constructor to perform the desire steps.
+    # creating an object for login page and this "LoginPage" takes this test's "page" because
+    # we are using this page certainly for our test cases, not any other page. Now, this page is
+    # sent as an argument for creating the object and place
+    #  it to the constructor of "LoginPage" class so that the methods that we have
+    #  in "LoginPage" class can use this "page" into their methods to perform go to, navigate,
+    #  and fill etc. these sort with actions.
     login_page = LoginPage(page)
 
     # calling the "navigate_to_login_page" from "LoginPage" class to navigate to the url

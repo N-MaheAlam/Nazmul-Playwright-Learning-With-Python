@@ -14,7 +14,17 @@ login_payload = {"userEmail": "nazmul2811@diu.edu.bd", "userPassword": "Rh@r1234
 
 class APIValidationFirstClass:
     # one argument is for playwright and another is to intercept the json file "user_details"
-    # from where we will collect the user details login and password that are already in dictionary type
+    # from where we will collect the user details login and password that are already in dictionary type.
+    # Our goal  is make the code readable and no hard code means, no data such as username, password
+    # tag names should not be directly placed in the code. If you see the method it takes the username and
+    # password as data in request post which we do not want to hard code. We already have this username
+    # and password in json file and using the fixture "each_user_credential_fixture" we can collect it.
+    # So, we are calling the "each_user_credential_fixture['user_email']" and storing in "email" and
+    # also calling "each_user_credential_fixture['user_password']" storing in "password" variable. As we
+    # are using the "each_user_credential_fixture" to collect the json data, we are sending this
+    # fixture as an argument in this method, converting hard code in readable professional code where
+    # data are hidden.
+
     def token_for_login_details(self, playwright: Playwright, each_user_credential_fixture):
         # to call chrome, firefox we used chromium or firefox after "playwright" but when
         # we want to validate api, we use "request". Then "new_context(), connecting us with the server,
@@ -49,7 +59,10 @@ class APIValidationFirstClass:
     def create_order_api_validation_rahul_shetty(self, playwright: Playwright, each_user_credential_fixture):
         # calling the above function inside this function using 'self'. as the above function has an
         # argument which type is "Playwright", we are giving the instance variable "playwright" which
-        # is declared in this function argument (self, playwright <- this one : Playwright)
+        # is declared in this function argument (self, playwright <- this one : Playwright). And
+        # as the "token_for_login_details" method takes 2 arguments to provide the email and password
+        # we need to give also the 2nd argument "each_user_credential_fixture". To call a method
+        # we must make sure we also provide the arguments.
         token = self.token_for_login_details(playwright, each_user_credential_fixture)
         # to call chrome, firefox we used chromium or firefox after "playwright" but when
         # we want to validate api, we use "request". Then "new_context(), connect us with the server,

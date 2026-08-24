@@ -98,6 +98,17 @@
                     that we got from the server and instructed the UI to provide UI or results
                     based on that response]
 71. add_init_script()
+72. class
+73. constructor
+74. self
+75. --headed
+76. pytest [ Just put this in terminal it will run the whole test suites (folder)
+77. @pytest.mark.smoke [to mark a test with a name let's say smoke]
+78. pytest -m smoke [ run this line of code in terminal  to run only test name marked as "smoke"]
+79. @pytest.mark.skip [ to skip a test in running of whole test suite ]
+80. pytest -k only_web [ it will run in terminal only the test has keyword "only_web" ]
+81. pytest -n 5 [ it will open 5 threads I mean browser and will run our tests ]
+
 
 
 

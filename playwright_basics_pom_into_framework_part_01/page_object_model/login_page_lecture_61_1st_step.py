@@ -15,7 +15,7 @@ class LoginPage:
         self.page.goto("https://rahulshettyacademy.com/client")
 
     # when we use this method, it provides login and password details and clicks on log in button
-    # which land us in dashboard page. that means once we login and as it takes to our dashboard page
+    # which land us in dashboard page. that means once we log in and as it takes to our dashboard page
     # so why don't we create an object of Dashboard and return once the login is done. Then we can
     # make a variable of dashboard type when this method is called and can perform our methods that
     # are present in Dashboard class right? As this method is returning Dashboard type something
@@ -25,4 +25,3 @@ class LoginPage:
         self.page.get_by_role("button", name="Login").click()
         dashboard_page = Dashboard(self.page)
         return dashboard_page
-

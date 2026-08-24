@@ -12,29 +12,6 @@ from playwright_basics_pom_into_framework_part_01.page_object_model.login_page_l
 from playwright_basics_pom_into_framework_part_01.utils.api_utils_lecture_49_50_51_60_important import \
     APIValidationFirstClass
 
-# --------------------- Lecture 48 first building UI Automation for API test ------------------------------
-# If we are using "Page" class then the argument will be
-# def test_e2e_web_api_check(page: Page):
-# But we are using the playwright and opening chrome, page manually. So, use the below format of
-# argument
-
-# --------------------- Lecture 58 no hard coding and calling data from json files -------------------
-
-# In our code there should be no data like username, password, locator's tag name, class name etc.
-# what we will do we will create a json file from which we will call the data that we need. Data can be
-# stored in json files, Excel files and xml files which we can bring in our test in run time.
-# However, json is the popular as software developers creates apis by which they call something from
-# server and display in browser in html format.
-
-# Now, we will create a directory name "data" inside our project file
-# "playwright_basics_pom_into_framework_part_01". Then, we will create a json file name
-# "user_details.json" on that directory. If you go to the json file you will see how the data are stored,
-# mostly in array format in javascript which is also considered as list in python.
-
-# Now, we will call this json file and extract the user credentials and use them according to our need
-# see the comments of "path" and json related code lines
-# REMEMBER ---- we access json file and convert them using built in utils so that python treats the json
-# as list or dictionary
 ''' Writing multiple comments line using triple single or double quote
 {
   "user_credentials" : [
@@ -66,32 +43,12 @@ with open(data_file) as f:
     # printing the json file data in our console
     print(converting_json_data_into_python_object)
 
-    # --------------------- Lecture 59 callings values from json for multiple log in -------------------
-
-    # collection the login details for the multiple users from the key
-    # "user_credentials_from_json_data_file" in "user_details.json" file
-    # my target is that no matter how many user details are there, my test will run for
-    # each user. If there are 10 users emails and passwords, it will run for 10 times.
-    # If you see the "user_details.json" file in a bigger picture It's a dictionary,
-    # however, inside dictionary there is a list "user_credentials_from_json_data_file" and this
-    # list has indexes are in  dictionary format "{
-    #       "user_email": "nazmul2811@diu.edu.bd",  ///////   { key : values }
-    #       "user_password": "Rh@r12345512"
-    #     }
-    # that means the hierarchy is like this list -> dictionary inside - again list inside dictionary
-
-    # Now, in below line, we are just taking the value of key
-    # "user_credentials_from_json_data_file". Inside this key, there also dictionary and inside
-    # dictionary also list which I already talked about. Storing those credentials in
-    # "user_data"
     users_data = converting_json_data_into_python_object["user_credentials_from_json_data_file"]
 
 
-# This a parameterized fixture details where the name of the parameter is 'each_user_credential_fixture'
-# and it's getting the value from "user_data" (login details)
 @pytest.mark.parametrize('each_user_credential_fixture', users_data)
-# This text has 2 parameter one is playwright as we know already and on is fixture coming from
-# "the conftest.py" file. Go and check the 'conftest.py" for more details
+# If you go to the conftest.py and check the fixture "browser_setup_and_tear_down_browser",
+# it is yield page ( I mean return page)
 def test_e2e_web_api_check(playwright: Playwright, browser_setup_and_tear_down_browser, each_user_credential_fixture):
     email = each_user_credential_fixture["user_email"]
     password = each_user_credential_fixture["user_password"]
@@ -101,15 +58,18 @@ def test_e2e_web_api_check(playwright: Playwright, browser_setup_and_tear_down_b
                 (playwright, each_user_credential_fixture))
 
     # creating an object for login page and this "LoginPage" takes this test's "page" as an argument
-    # and sending to its class constructor to perform the desire steps.
-    # if you notice "browser_setup_and_tear_down_browser" returns "page" [ as after yield in the
+    # and sending to its class constructor to perform the desire steps. Now, instead of sending page
+    # to the log in class we have sent in argument "browser_setup_and_tear_down_browser".
+    # If you notice "browser_setup_and_tear_down_browser" returns "page" [ yield page means return page
+    # perform all the actions in test case then come back to the yield to finish the closing scenarios
+    # of a test]
     # fixture we return so-called yield the page. So, if we put the fixture name as an argument
     # in the LoginPage Class, it is taking the page that is coming from that fixture, that's what we need.
     # As we are using that page in the fixture to go to url, browser setup, so it is the page that we want
     # to use in our code.
     login_page = LoginPage(browser_setup_and_tear_down_browser)
 
-    # Once we call the login function, it lands into dashboard page and we create a variable
+    # Once we call the login function, it lands into dashboard page, and we create a variable
     # which type is "DashBoard" as we have returned a "dashboard" type object when click the log in
     # check the function "provide_username_password_and_click_log_in" in "LoginPage" Class
     dashboard_page_landing_from_login = (
@@ -118,4 +78,4 @@ def test_e2e_web_api_check(playwright: Playwright, browser_setup_and_tear_down_b
     order_history_page = dashboard_page_landing_from_login.click_on_order_button()
     order_details_page = order_history_page.view_the_actual_order_details(order_id)
     order_details_page.verify_the_thank_you_message()
-    time.sleep(1)
+

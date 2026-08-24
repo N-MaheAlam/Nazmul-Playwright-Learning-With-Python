@@ -1,6 +1,10 @@
+import time
+
 import pytest
 
 
+# here "request" is a built-in parameter or argument whatever you say, it has the power to access
+# global variables as well as the local functions variables parameters
 # this fixture is requesting for a parameter. When we will use this fixture, we need to provide a
 # parameter with name and beside that the variable name from which it will request data
 @pytest.fixture(scope="session")
@@ -16,9 +20,16 @@ def each_user_credential_fixture(request):
 # this "pytest_addoption" will set a variable that we can modify
 # on command line prompt, name "browser_name" that we can use in CLI.
 # in its parameter it's saying my command line variable will be "browser_name"
-# the "action" will be storing that value to use according to the command
-# if no value is given the default value will be "chrome"
-# "help" is just additional comment you can declare on that. This is a built in function of pytest
+# the "action" keyword is representing what we are doing with this keyword.
+# We are storing such as the "--browser_name" to use it right? So, it
+# will be storing that value to use according to the command
+# if no value is given to for example if we do not provide which browser it should run then,
+# where it should run? That's why we are giving the default value will be "chrome" means if we
+# do not give any browser name it should run on chrome. "help" keyword is used to give definition
+# for that specific keyword. "help" is just additional comment you can declare on that.
+# This is a built-in function of pytest.
+# Now, with the "parser.addoption" we can add multiple global CLI variables, all we need to do, change
+# the name, action, default and help values
 def pytest_addoption(parser):
     parser.addoption(
         "--browser_name",
@@ -36,6 +47,14 @@ def pytest_addoption(parser):
     )
 
 
+#                                   LECTURE -64
+
+# Here, we haven't used scope = session, because, We are running our code by using 2 data sets from
+# the json file. So, if we give scope = session what it will do, after loging in with the first data
+# sets (username and password) it will perform its actions such as navigate, click, scroll and
+# when the test is finished for first data sets, it will return the page which has already the log in
+# token details of first data sets. Finally, when the test will be run for 2nd data sets it will
+# directly land on dashboard page instead of log in page which will lead to error.
 @pytest.fixture
 def browser_setup_and_tear_down_browser(playwright, request):
     #  we are storing the "--browser_name" from terminal in "browser_name" variable, not the parameter
@@ -64,3 +83,4 @@ def browser_setup_and_tear_down_browser(playwright, request):
     print("\nThis statement comes from fixture because of yield and after every text execution"
           ", Execution is successfully completed :) \n\n ================= TEST ENDS ===============")
     context.close()
+    time.sleep(1)
