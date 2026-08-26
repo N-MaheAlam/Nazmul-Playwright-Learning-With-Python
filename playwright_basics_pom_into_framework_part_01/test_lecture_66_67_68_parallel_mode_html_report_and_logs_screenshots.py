@@ -25,6 +25,7 @@ Now, we can use the same command as above but need to add html and html report n
 Link to learn :
  https://playwright.dev/python/docs/trace-viewer-intro
 
+Tracing is used to see each and every step with  screenshots of our tests.
 command in terminal of test folder:
  " pytest --tracing on"
 
@@ -39,8 +40,9 @@ Let's see the big command line and explain
 
 This line is opening the test firefox as we have already built our own custom key word
  "browser_name" in lecture 63_64, running for each test  which has fixture name by
- "@pytest.mark.smoke", tracing is on means it will generate logs, screenshot for all the test and finally
- generating the html report locating in project level"
+ "@pytest.mark.smoke", -n 3 is opening 3 browsers (threads) for us to run our tests
+  tracing is on means it will generate logs, screenshot for all the test and finally
+  generating the html report locating in project level"
  "pytest --browser_name firefox -m smoke -n 3 --tracing on --html=report_name_in_project_level.html"
 
 So, once we run the command, we will see a folder name with "test-results" has been generated.

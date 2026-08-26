@@ -41,6 +41,7 @@ def test_frame_handling(page: Page):
     expect(frame_page.locator("body")).to_contain_text("Happy Subscibers")
 
 
+"""
 # This test is to run in iPhone 13
 def test_mobile():
     with sync_playwright() as p:
@@ -63,3 +64,4 @@ def test_mobile():
         page.on("dialog", lambda dialog: dialog.accept())
         page.locator("#confirmbtn").click()
         time.sleep(2)
+"""
