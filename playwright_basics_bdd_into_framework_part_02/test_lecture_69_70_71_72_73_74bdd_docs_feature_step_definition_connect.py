@@ -10,9 +10,12 @@ from playwright_basics_bdd_into_framework_part_02.utils.api_utils_lecture_49_50_
 """"
 ===================== LECTURE 69 - BASICS BDD DISCUSSION ====================
 
- BDD = Behaviour Driven Development, Cucumber is a tool that support BDD. 
+ BDD = Behaviour Driven Development, Cucumber is a tool or framework that support BDD. Pytest is one of
+ unit testing framework in python. In Pytest we can integrate Cucumber as a BDD so that a non technical
+ person can understand our code just by reading plain text.
  Cucumber uses Gherkin as a language which is nothing but plain text with proper key words
- like "When, And, Given, Then, Examples.
+ like Given, When, Then, And, Examples.
+ 
  So, the cucumber framework has a "feature" file where we write our feature, scenarios, given, when, then
  and, examples.
  
@@ -27,7 +30,8 @@ from playwright_basics_bdd_into_framework_part_02.utils.api_utils_lecture_49_50_
  Now, a feature file can have multiple Scenarios, consider feature as test suites and scenarios as test 
  cases.
  
- Now, go to the "features" directory and write your first feature with extension like "your_name.feature"
+ Now, create a new folder give name as "features" and to the directory,
+  write your first feature with extension like "your_name.feature"
  you will see it will be a cucumber format otherwise it will show you to install cucumber and just do 
  that.
 
@@ -42,12 +46,38 @@ from playwright_basics_bdd_into_framework_part_02.utils.api_utils_lecture_49_50_
 
 """
 
+# The scenario is saying this step definition files are the elaboration of the feature file
+# situated in 'features/verify_order_message.feature' and we are implementing the features steps
+# in this file
 scenarios('features/verify_order_message.feature')
+
+""" This fixture is nothing but returning an empty dictionary. If you check every method, you will
+find out that everytime we are calling a login page, or dashboard page or any other page, it has 
+limited scope only in the method where it is used. But to use those modified pages, we are 
+storing them in this  shareable_data_in_this_module[key] = value, so that we can call the key in other
+methods and use the pages. Otherwise, everytime once the operation is completed in mtheod where we 
+called that page, dies over there or cannot be used in other method because of limited scope
+
+"""
+
+
 @pytest.fixture
 def shareable_data_in_this_module():
     return {}
 
 
+"""
+This statement inside the given is coming actually from the feature file that is in "features"
+directory and the following function is indicating that the function is connected with the 
+given statement
+"""
+
+
+# to use a variable that is defined in feature file such as we used  this format "<username>"
+# in our feature file. So, to call the same "username" we use "{username}, curly braces so the
+# step definition file understands the date [variable] is coming from the feature file. and
+# "parsers.parse" is sending the given string to the feature and telling that {username} and
+# {password} are variables, so grab it from the Examples of feature file
 @given(parsers.parse('place the {username} and {password} in login page from API'))
 # the "username and password argument of this method is coming from this above "given" BDD
 def grab_order_id_from_ui(playwright, username, password, shareable_data_in_this_module):
@@ -71,7 +101,7 @@ def grab_order_id_from_ui(playwright, username, password, shareable_data_in_this
     # each_user_credential_fixture['user_email'] = username
     # and
     # each_user_credential_fixture['user_password'] = password
-    # which are nothing but fulfilling our request
+    # which are nothing but fulfilling our request without modifying the previous code
     #
     order_id = (creating_order_class_object.create_order_api_validation_rahul_shetty
                 (playwright, each_user_credential_fixture))
@@ -114,6 +144,7 @@ def login_into_portal(username, password, shareable_data_in_this_module):
     # We did the same thing  here for dashboard page as "order_id" and "login_page"
     shareable_data_in_this_module['dashboard_page_landing_from_login'] = dashboard_page_landing_from_login
 
+
 @when('navigate to the order page')
 def go_to_the_order_page(shareable_data_in_this_module):
     #
@@ -121,12 +152,14 @@ def go_to_the_order_page(shareable_data_in_this_module):
     order_history_page = dashboard_page_landing_from_login.click_on_order_button()
     shareable_data_in_this_module['order_history_page'] = order_history_page
 
+
 @when('select the order ID')
 def select_the_order_ID_from_UI(shareable_data_in_this_module):
     order_id = shareable_data_in_this_module['order_id']
     order_history_page = shareable_data_in_this_module['order_history_page']
     order_details_page = order_history_page.view_the_actual_order_details(order_id)
     shareable_data_in_this_module['order_details_page'] = order_details_page
+
 
 @then('the order ID should match with API order ID')
 def order_IDs_of_both_UI_and_API_should_match(shareable_data_in_this_module):

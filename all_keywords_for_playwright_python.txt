@@ -108,6 +108,13 @@
 79. @pytest.mark.skip [ to skip a test in running of whole test suite ]
 80. pytest -k only_web [ it will run in terminal only the test has keyword "only_web" ]
 81. pytest -n 5 [ it will open 5 threads I mean browser and will run our tests ]
+82. --html = html_report_name
+83. trace on/of/ event on failure
+84. BDD
+85. feature
+86. Scenarios
+87. Scenario Outline
+88. Given, When, Then, And
 
 
 
