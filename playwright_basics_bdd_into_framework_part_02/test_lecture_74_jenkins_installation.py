@@ -78,4 +78,47 @@ Then , in " Add build step" I will use like below
 Now, When I will build the project I will see "Build with Parameters"
 Click on that and select the option whatever I like, If I choose "chrome" all my tests will run in
 Chrome browser
+
+
+With the choice parameter we can create smoke, regression and any kind of test
+
+ For example, we will create a parameter name "test-type"
+ for choices I will write
+ smoke
+ regression
+ unit
+ acceptance test
+
+ and from the command of execute shell  I will use
+===> pytest --browser_name "$browser" -n 3  -m "$test-type"--tracing on --html=report_from_jenkins.html"
+
+Then I will select the test type which I want to run.
+
+MAKE SURE: you used the fixtures to name as smoke, regression, unit, acceptance test in your test
+@pytest.mark.smoke
+@pytest.mark.regression
+@pytest.mark.unit
+@pytest.mark.acceptance_test
+
+These are name we provide before each test and to mark them
+
+======================== LECTURE 76 - Jenkins Jobs Scheduling  ===========================
+
+If we want to run our test suites that is uploaded in jenkins, we can set time such
+which days and time, we want to run our tests
+For that We need to
+
+=> Click on configue and click "Build Triggers" and you will see "Build Periodically"
+
+
+
+
+
+
+
+
+
+
+
+
 """

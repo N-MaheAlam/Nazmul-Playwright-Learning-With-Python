@@ -1,0 +1,1814 @@
+
+		 ============= LECTURE 01 - WHAT IS POSTMAN =============
+
+
+	Endpoint = is the URl where the APIs are hosted.
+
+	Resources - google.com/maps
+				google.com/images
+				google.com/search
+
+				-	Here "google.com" is the end point or base URL and "maps",
+					"images", "search" are the resources.
+					such as images resource has the image APIs, maps resource
+					has the only maps.
+
+		Path Parameter	=	google.com/maps/CA/toronto
+		 This a path parameter.
+
+		 Query Parameter	=	google.com/maps?hotel/49494?
+		 Here the question(?) represents the query parameter.
+		 query parameter is used to sort or filter the resources.
+
+
+
+->	With postman you can develop the APIs as well as test them.In java or Python
+	for APIs testing you need variables, environments, workflows and data driven
+	components. I mean write few lines of code to declare the variables and also
+	load them for testing. But in postman, you need to create the variables.
+
+	But in postman you already have
+	some features where you can just put the values for using in tests. In addition
+	you anyone wants to do the data driven testing they can just load the data file
+	and execute the tests. and last but not least, when ever we run a test there
+	can be some pre request such as delete the cookies, add some functionalities
+	which must be followed before test accomplishment. Theses sort of features can
+	be obtained by postman.
+
+	We can run postman using Newman in CLI,
+	postman can also test SOAP UI, GraphQL,
+
+
+	       ============= LECTURE 83 - APIs Basics =============
+
+	To understand the APIs, let's take an example, Marriott hotel. For Marriott, they have
+	their own website  which a front end where clients can book or reserve hotel rooms. Let
+	say this client side is made of Java and basic HTML. They also have a back end website
+	(server) where they process the data collected from the client side and stores in their
+	Database. Now, hotels.com is a largest website where they shows the availability of
+	various hotels across the world including Marriott. Now, how they show the available
+	Marriott hotels, rooms are available in their website hotels.com. Think Marriott as client
+	now, because hotels.com asks for the available room to Marriott and if there are available
+	rooms, Marriott response back thorough their database. There are so many websites such as
+	hotels.com, mybooking.com, mytrip.com. So, Marriott cannot provide their all repository
+	or code to these websites. What Marriott will do, it will provide only the information of
+	its available for example rooms, dates, price, location.
+
+	Another example is let say, Marriott built their Front using Java and Back end using Java.
+	So, they can communicate easily to create reservation, booking etc. However, now Marriott
+	built their front end using Angular-TypeScript and back end is Java, HTML. How these front
+	and backend will connect, I mean when customer give the details in Angular website, how
+	the backend Java process the data and give response? That's where also comes APIs into the
+	picture. Both front and back end communicate thorough http protocols and their request and
+	response is in JSON or XML format.
+
+						LECTURE 03 - INSTALLING POSTMAN & CREATING WORK SPACE
+									 ADDING POST REQUEST.
+
+
+->	Install Postman into your system , then log in by creating an account.
+
+->	Create a new WorkSpace, Give a name , we can make the work space public
+	or team, or personal nor partner.Public can be seen where ever you will
+	share the link as an example blogs. Team when we collaborate our testing
+	with other team members so that they can contribute in overall testing
+	project.
+
+->	Now, in work space create a collection, give name , hit and enter.
+	Collection is a test suite or test folder where it holds tests. Such as
+	when you make a payment in paypal it has like credit card number, CVV,
+	expire date. So these three things Card number, CVV,expire are three test
+	which is wrapped in a test suite I mean COLLECTIONS in postman.
+
+
+	1)	Now in Collection create a "Request"  New POST Request,give the
+		source url from where you will add the book. There will be 2
+		things in URl, one is called "end point" (https://rahulshettyacademy.com)
+		another is called resources (/Library/Addbook.php). In Request,
+		"POST" method we need to provide this whole url
+
+		"https://rahulshettyacademy.com/Library/Addbook.php"
+
+
+		((( The lecturer created
+		2 different servers  https://rahulshettyacademy.com &
+		http://216.10.245.166 because when we will do our test, there
+		can be different environment like QA environment, UAT environment,
+		production environment. For various environment there can be different
+		server to test. That's why We need to be familiar with different urls. )))
+
+		 Now in "body" click on "raw", then Change from text to "JSON". Put the
+		 JSON format then hit and enter.  you will see a successful message that,
+		 the book has stored.
+		-> body -> raw -> select JSON
+
+		JSON Code -------------
+
+				{
+
+				"name":"Postman start Oct 01 2023",
+				"isbn":"Oct2023",
+				"aisle":"01",
+				"author":"Nazmul Mahe Alam"
+				}
+		----------------------
+		IN response you will see a success message like below
+		----------------------
+
+				{
+   				 "Msg": "successfully added",
+   				 "ID": "Oct202301"
+				}
+
+	2)	Now, create a new collection which is "GET" put the main url
+		(https://rahulshettyacademy.com/Library/GetBook.php?ID=Oct202301) & query
+		url. change "ID" value from link or from the visible box then hit
+		and enter you will see that it will give you the details of everything
+
+		JSON Code response
+		----------------------------
+
+		    {
+        	"book_name": "Postman start Oct 01 2023",
+        	"isbn": "Oct2023",
+        	"aisle": "1",
+        	"author": "Nazmul Mahe Alam"
+    		}
+		------------------------------
+		you don't need to put any code inside the body as your are retrieving the
+		date. you will get a response like above.
+
+	[	Before start testing you need to collect all the contract details from
+		you developer, So that you can test the APIS properly.]
+
+
+
+						LECTURE 05 - ADD  DELETE REQUEST IN COLLECTION
+
+	->	Add a new "Post" request where we will delete books.
+		put that url in POST (https://rahulshettyacademy.com/Library/DeleteBook.php).
+
+		And in body put the below code in JSON format.
+		-----------------------
+
+			{
+
+				"ID" : "Oct202301"
+
+			}
+			-------------------
+
+			you will get a response like below
+
+			----------------------
+
+			{
+   				 "msg": "book is successfully deleted"
+			}
+			------------------------------
+
+			[ Make sure the book is added by "AddBooks" request otherwise
+			you will face some error ]
+
+
+	->	Now, remember there are some criteria which we should follow, such
+		response code (200 or not), values are displayed as expected ( when
+		we get the value is it displaying properly or not). We will have a
+		contract file which we should follow. Suppose if any expected field
+		is missing then you should think that there is a bug and need to
+		inform the developer.
+
+	->	Environment, suppose for QA a you will work on QA environment , there
+		will be different URL. For developer there will be different environ-
+		ment and different URL. So, the test script should be capable of
+		running in any environment.
+
+	->	We should also make the test functional, such as the book that we added
+		will automatically will take place in get book and will automatically
+		place in delete book. But in examples we added manually this time we will
+		place in one place and will be run by another place also.
+
+
+							LECTURE 07 - CREATE ENVIRONMENT IN WORKSPACE
+
+
+		"Environment"
+
+		-> An environment is a set of variables you can use in your Postman
+		requests. You can use environments to group related sets of values
+		together and manage access to shared Postman data if you are working
+		as part of a team.
+
+		Variables allow you to store and reuse values in your requests and
+		scripts. By storing a value in a variable, you can reference it
+		throughout your collections, environments, and requests-and if you
+		need to update the value, you only have to change it in one place.
+		Using variables increases your ability to work efficiently and
+		minimises the likelihood of error.
+
+
+		3)	Create 2 environment one for "UAT" & one for "QA" then
+			add the base url in value in each environment and save it
+
+			[remember Initial value we need to put and current value changes
+			when we run the test, (sometimes we also put the value in current).
+			Such as sometimes when we will run the test, the value of anything
+			that can be changed we will run the script. So that's why, we just
+			need to add "Initial value" and current value will be filled or
+			changed when we will run the test.
+
+
+		 					Lecture 08 - VARIABLE SCOPE
+
+		 Now, in QA and UAT environment create variable with name "base_url"
+		  for QA use "http://216.10.245.166" and for UAT environment use
+		  "https://rahulshettyacademy.com".
+
+		  Then, in  POST request URL place use
+
+		  "	{{base_url}}/Library/Addbook.php " instead of
+
+		  "	http://216.10.245.166/Library/Addbook.php "
+
+		  and "https://rahulshettyacademy.com/Library/Addbook.php"
+
+		  -> This "base_url" is indicating the value that has come from
+		  	 UAT environment or QA Environment according to the environment
+		  	 which we have selected.
+
+		4)	there should be error when we will try to run our script in any
+			environment, make sure the initial value and current value are same
+
+		5)	remember each environment has there own database , Such as if we
+			add a book in UAT environment it will show success and when we
+			will try to add again it will show the book is present.
+			Now, change the environment and from UAT to QA and when you will
+			add the book it will show success messages. because there it has
+			its different database.
+
+
+		6)	Variable types: hierarchy of variables
+
+		Global -> Collection -> environment -> data -> local
+
+			i)	global - which can be used thought out the work-space.
+		   ii)	Collection- this can be used in a collection such in
+		  		every get, post, delete.
+
+		  iii)	environment - this can be used  in environment level
+
+		   iv)	data - that comes from CSV or JSON files.
+
+		   iv)	local - this is only for the certain post, or get method.
+
+		   The lower the scope higher the priority, such as if same variable
+		   is defined in environment & local , the test script will pick the
+		   local one.
+
+
+
+
+						Lecture 09 - SCRIPTING IN TEST
+
+
+		So, In postman there is "pre-request scripts" where we will write code
+		that what we want to add in our test before it runs.On the other hand
+		"Tests" we will write code when the test executes and we want match some
+		criteria.
+
+		->	There is an object "pm" by which we can call any functions or method
+			in our test scripts or pre request scripts.
+
+		Scripting in "AddBook"(Write this script in "test" as the below function
+		will work after test thats why we put it in "Test"
+
+
+
+
+
+		/*-
+		This variable store the response in json format. The response can be
+		anything such as HTML,XML,TEXT,JSON objects. So it converts that response
+		into json format and stores in "jsonResponseStore".
+		-------------------------- */
+		 const jsonResponseStore = pm.response.json();
+
+		/*- Here,"pm" is an object which call a method "test". Now, this "test"
+		method takes 2 arguments one is test name ( we can give what ever we want)
+		and 2nd argument is the "function(){.....}". Here , inside the function
+		we validate our request, response, data and so manythings.
+		------------------------------ */
+		pm.test("Status code validation 200 OK ", function(){
+
+
+		    /*
+		    checking the response have a status code 200.Here, "pm" is object
+		    "reponse" is the response message we get after test runs. "to" &"have"
+		    is a sequence to go to "status". Status can be 200, 404,401 that will
+		    come from the response.
+		    ----------------------------*/
+		    pm.response.to.have.status(200);
+
+		    /* In "expect()" method we pass the variable "jsonResponseStore"
+		        which we know the JSON format of the result or response.
+		        Checking if the reponse has a property "Msg".
+		        -----------------------------------*/
+		    pm.expect(jsonResponseStore).to.have.property("Msg");
+
+		    /*
+		     In "jsonResponseStore" variable there a attribute "Msg".
+		     Expecting "Msg" attributes value will be "successfully added".
+		    ---------------------- */
+		    pm.expect(jsonResponseStore.Msg).to.eql("successfully added");
+
+		})
+
+
+						Lecture 10 - GLOBAL VARIABLE & PRE-REQUEST SCRIPT
+
+		->	Now, suppose we want a variable which should a random variable
+			which will be placed in "isbn" in "AddBooks" request. Let's think
+			company has a code such as "NAZ" will come from global variable and
+			with this company name a random variable will be add to produce a
+			unique value for "isbn" value.
+		->	Now, go to the "Environment" in postman, click on it then you will
+			see "Globals" initiate "companyCode" and give value "NAZ".
+
+		->	Now write a "companyCode" - "NAZ" in global variable
+
+		->	Now, go to the "Collection" , just name a variable name "isbn".Don't
+			need to put any value. we will generate it from pre- request.
+
+		->	Now, go to the "AddBook" Collection , click on "Pre-request
+			test"
+
+			write the below code
+
+
+		/*
+		 "pm" goes to "globals" variable "get"'s the "companyCode" variable
+		 value & stores in "companyPrefix".
+		--------------------------*/
+		 const companyPrefix = pm.globals.get("companyCode");
+
+		 //Print the Company Code  in console which is stored in global variables
+		 //-----------------------
+		 console.log(companyPrefix);
+
+		 //Generates a random value between 0 to 100 & store in "randomValue"
+		 //------------------------------
+		  const randomValue =pm.variables.replaceIn('{{$randomInt}}');
+
+		  /*
+		  In Collection "Collection For Book" , there is variable "isbn",
+		  which will be  set before the test executes in pre-request, and
+		  "isbn" value will be combination of compnay code "companyPrefix"
+		  & random Variable "randomValue"
+		  -----------------------------------*/
+		  pm.collectionVariables.set("isbn", companyPrefix+randomValue);
+
+
+
+
+		-> Now, go to collection level (Library) add a variable "isbn"
+
+		-> Now , go to "Add Book" then replace the "isbn" number with
+			["{{isbn}}] in body JSON code
+
+			such as below
+			-----------------
+			{
+
+			"name":"Postman start Oct 01 2023",
+			"isbn":"{{isbn}}",
+			"aisle":"01",
+			"author":"Nazmul Mahe Alam"
+			}
+
+			-----------------
+
+
+						Lecture 11 - HEADER ASSERTION IN TEST SCRIPT
+
+
+	->	Now go to the Test script of "AddBooks", Write the below code
+
+
+
+
+		pm.test("Test 02: Header, Cookies, Response Time check", function(){
+
+		    /*Check in response there is a header which is "Content-Type"
+		    ----------------*/
+		    pm.response.to.have.header("Content-Type");
+
+		    /* In response, there is header "Content-Type" & expecting this
+		    headers value is same as "application/json;charset=UTF-8"
+		    ----------*/
+		    pm.expect(pm.response.headers.get("Content-Type")).to.
+		    eql("application/json;charset=UTF-8");
+
+		    /* Expecting the response time will be below 2000 miliseconds.
+		    ---------------*/
+		    pm.expect(pm.response.responseTime).to.be.below(2000);
+
+		    /*
+		     Stores the response in text format and expects there will be text
+		     "successfully added" in response.
+		    -------------------*/
+		    pm.expect(pm.response.text()).to.include("successfully added");
+		})
+
+
+
+
+
+    					Lecture 12 -  STORE BOOK ID IN ENVIRONMENT FROM TEST
+    								  SCRIPT.
+
+
+    	Now, When we you run the "AddBook" request it will generate a "ID".
+    	I want to grab that "ID" value from test script and want to store in my
+    	environments(QA & UAT). Then This ID will be given in Get Book  url and also
+    	the ID will be placed inDelete Book url . To Do So,
+
+    	->	go to every environment create a "book_id" in both environment.
+    		Don't put any value. just the name.
+
+    	->	Now get the response from "Add Book", convert it into json format,
+    		grab the "ID" from response & put it in environment variable.
+    	->	In "Get Book" request go to the variables dynamically put the value
+    		of "ID" into "{{book_id}}. And in "Delete Book" body  instead of the
+    		below code in "body"
+
+    			{
+
+				"ID" : "oct012023"
+
+				}
+    		-	Write the below code which indicates the "ID" will come from the
+    			variable where we have set it (environment UAT & QA )
+
+				{
+
+				"ID" : "{{book_id}}"
+
+				}
+
+		->	Write the below code in "Add Book"'s test script but remember the codes
+			that we have written in other lectures will remain in every as same. We
+			are just adding small pieces of code in our framework not changing the
+			entire structure in every lecture.
+
+			pm.test("Test 03: Store Book ID in environment", function(){
+
+			    // collect the response in json format in "jsonData" variable
+			    const jsonData = pm.response.json();
+
+			    // Store "ID" from the reponse in "book_id"
+			    const book_id = jsonData.ID;
+
+			    // In environment set the "book_id" environment value into this
+			    "book_id" value from script.
+			    pm.environment.set("book_id", book_id);
+
+			})
+
+
+		->	Now, go to the collection where you will see a "Run" button, click on
+			that to run the entire Collection. Change the environment and check
+			in every environment.
+
+
+
+    					Lecture 13 - VERIFY ADD BOOK REQUEST MESSAGE IS SAME AS
+    								 GET BOOK RESPONSE MESSAGE.
+
+
+    	How to verify the response message is correct or not:-
+
+    	Suppose when we add books in "AddBook" , then we get the details
+    	from "GetBook". Now we need to check the response that we are getting
+    	from "GetBook" are the same value of "AddBook" that we have passed in
+    	body of "AddBook". TO do so we need to
+    	do,
+
+    Write this code in GetBook "Test" script
+
+		****
+		// storing response from get book in json
+    	const getBookResponse = pm.response.json();
+
+
+		pm.test("Response Validation", function(){
+
+		// prints the value in console
+    	console.log(getBookResponse);
+		})
+		******
+
+	[	Remember when ever we collect any json response from any request,
+		it stores in array, if you run the above code you will see that
+		in console it is stored as an array. if we want to get the values
+		of response we need to first go to the index number then grab the
+		value. such as the response is in now 0 index, so we have to first
+		go to the 0 index then collect the certain value.]
+
+	-> now create "author_name" a blank value in collection variables.
+
+		in "AddBook" in "pre-request Test" set "author_name"
+		"Nazmul Mahe Alam" .
+
+		---------------
+
+		/* In collection variable we declare a variable "author_name" &
+    	setting the value in pre-request of Add Books.
+		---------------*/
+  		pm.collectionVariables.set("author_name", "Nazmul Mahe Alam");
+
+		--------------------
+		->	Now, in "AddBook" in body in author give value
+		{{author_name}}. And now write the below code in "Test" of get Book
+
+		-----------------------------
+
+
+			// Store in json format
+			 const getBookResponseJson = pm.response.json();
+
+		 	pm.test("Test 04: Check Add Books & Get Books Value", function(){
+
+		     // print the responses in console
+		    console.log(getBookResponseJson);
+
+		    /* get author_name from response and expecting to be equal to the
+		    author_name stored in collection variables
+		   ---------- */
+		     pm.expect(getBookResponseJson[0].author_name).
+		     to.eql(pm.collectionVariables.get("author"));
+
+		     /* get isbn from response and expecting to be equal to the
+		    isbn stored in collection variables
+		   ---------- */
+		     pm.expect(getBookResponseJson[0].isbn).to.eql
+		    	(pm.collectionVariables.get("isbn"));
+		      })
+
+						Lecture 14 - VALIDATING JSON SCHEMA
+
+
+		Important topic :- Validating Json Schema
+
+
+		So, JSON Schema is a format which shows, what are the types of
+		Json messages such as string , integer, boolean etc. Our job is to
+		validate the request that we are sending is giving us the same json
+		schema in response.
+
+
+		->	Go to the "GetBook" copy the response and put it in an
+			JSON schema generator tool from	online such as
+			"https://www.liquid-technologies.com/online-json-to
+			-schema-converter" . Make sure delete the array "[]" sign and extra
+			things before putting this in a variable.
+
+		->	Go to the "GetBook" "Test" create a variable store the json
+			schema "schemaNaz"
+
+		-> Write a new "test" in "GetBook" which will validate the Schema
+
+					----------------------
+		const jSchema ={
+			  "properties": {
+			    "book_name": {
+			      "type": "string"
+			    },
+			    "isbn": {
+			      "type": "string"
+			    },
+			    "aisle": {
+			      "type": "string"
+			    },
+			    "author": {
+			      "type": "string"
+			    }
+			  },
+			  "required": [
+			    "book_name",
+			    "isbn",
+			    "aisle",
+			    "author"
+			  ]
+			};
+			      pm.test("Test 05: Json Schema Check ", function(){
+			          pm.response.to.have.status(200);
+			          pm.response.to.have.jsonSchema(jSchema);
+			      })
+			-----------------
+
+
+		->	Now go to the "DeleteBook" Create a Test by following
+						------------------------
+
+
+
+			const deletebookJsonSchema = {
+
+			  "properties": {
+			    "msg": {
+			      "type": "string"
+			    }
+			  },
+			  "required": [
+			    "msg"
+			  ]
+			};
+
+			pm.test("Test 06: Json Schema check for Delete Book", function(){
+
+			    // Response is 200 or not
+			    pm.response.to.have.status(200);
+
+			    // check the schema in response is same as "deletebookJsonSchema"
+			    pm.response.to.have.jsonSchema(deletebookJsonSchema);
+
+			    // store json response message
+			    const jsonData = pm.response.json();
+			    // check the response of "msg" is correct or not
+			    pm.expect(jsonData.msg).eql("book is successfully deleted");
+			})
+
+		--------------------------
+
+
+							LECTURE 15
+
+		In AddBook we generated the ID by  "isbn" & "aisle" number.
+		Now, Let's verify the ID we produced is same as response.
+		Make sure All the variables like  "jsonData", "book_id" are
+		declared in "Add Book" test scripts at the beginning because
+		if we declare beside the below test, some tests may need the
+		the "book_id" or "jsonData" variable at there test.So, its
+		better to declare the variables  that we will use through out
+		the test script, at first.
+
+						---------------
+		pm.test("ID request & response validation", function(){
+
+    	//Store the isbn number from collections
+    	const isbn_no = pm.collectionVariables.get("isbn");
+
+    	/*-
+    	normally the response that we get, its in json format
+    	and we can access to that by "pm.response.json() -- but
+    	to get access in request body wee need to parse it into
+    	JSON & we need to access by (pm.request.body.raw) [As we
+    	can see in body we have selected "raw" & there is json
+    	format"
+    	*/
+    	const add_request_json =  JSON.parse(pm.request.body.raw);
+
+    	// Now, access the body messages "aisle" & store
+     	const aisle_no = add_request_json.aisle;
+
+    	// concate the isbn_no & aisle_no
+     	const real_id = isbn_no+aisle_no;
+
+    	// compare the value from request & response
+     	pm.expect(real_id).to.eql(bookID)
+}		)
+--						----------------
+
+						LECTURE 16 - DATA DRIVEN TESTING
+
+
+		 DATA DRIVEN TESTING from CSV file
+
+		->	Create a excel file, where we will put 2 columns
+		 	"BookNameCSV" & "AuthorCSV". Give some book name & author name
+		 	and save as a .csv file.
+
+		You can import csv file in your postman but not the excel file.
+
+		->	create the "book_name" & "author_name" variables in
+			"Collections".
+
+		put this in "AddBook" Body which will be request message to run
+
+		---------------
+		{
+			"name":"{{book_name}}",
+			"isbn":"{{isbn}}",
+			"aisle":"227",
+			"author":"{{author_name}}"
+		}
+
+		->	Now in "AddBook" pre-request write the below code
+
+		-------------
+
+		//set values for both this below line s, that we will get from the file
+		//when we will load
+		// in run (the csv file where there is a column name "BookName")
+		pm.collectionVariables.set("book_name",pm.iterationData.get("BookName"));
+		pm.collectionVariables.set("author_name",pm.iterationData.get("Author"));
+
+		// print the values from response
+		console.log(pm.collectionVariables.get("book_name"));
+		console.log(pm.collectionVariables.get("author_name"));
+
+
+		->	Now, run the code from collections and when we will run
+			select the "CSV" file where we have stored our data. preview
+			the data if its correct or not, then run the test , you will see
+			the magic.
+
+
+						LECTURE 17 & 18 (important) - DELETE AN EXISTING DATA & RERUN
+													  THE REST.
+				(Always see this lecture important for interview)
+
+	->	Suppose we want to add a book in "AddBook" but the book is already
+		exists which means that at the starting we produced a unique "isbn"
+		number by "CompnayCode" & "randomint". SO, suppose there can be same
+		isbn valued book & it will show that the book is already exists &
+		will get status code 404 and test will fail. So what we will do then?
+		Here, the API is not wrong but our data. So we have to clean up the
+		data then run the test.
+
+
+	->	So, if we get such kind of error such as for our test it will show
+		"the book is already exists" we need handle this
+
+	->	Go to the "AddBook" "Test" there is test name "Duplicate Book ID
+		delete validation" go and check everything.
+
+
+
+
+							LECTURE 20
+
+	->	OAuth 2.0  is  the industry-standard protocol for authorization.
+		such as , if we want to see face book post or anything, we must
+		first log in right.
+
+	->	OAuth comes with multiple grant types which means multiple
+		authorisation flows. Authorisation code and client credentials
+		are two most famous OAuth grant types.
+	->	Suppose, in some web sites when we try to reach it says, sign in with
+		your google or face book or apple, github , linkedin account without
+		creating an account such as go to (https://www.geeksforgeeks.org)
+		this web site you will see a pop up to sign in with different
+		accounts. This is called the OAuth 2.0 authentication.
+
+
+
+
+							LECTURE 21- OAuth 2.0 Definition (Important )
+
+	->	OAutho 2.0 is needed when?
+		Suppose, I want to sign up in an web site where I can sign up with
+		my face book or google credentials which means , I don't need to
+		create an account on that web site, It will bring my profile
+		information from google or face book but it can not bring my password.
+		It is good for the 3rd party web site as it doesn't need to store
+		my profile details. Web site can crash or can be hacked which is
+		risk right? So, that's why the can pull the information from google
+		whenever we will try to log in into the 3rd party web site by giving
+		our email & password to google server. Each time you will try to log
+		in, the 3rd party web site will show to log in by google.
+
+
+		Suppose, we want to log in at bookmyshow.com where we can log in by
+		giving our google email and password. In OAuth 2.0 Mechanisim
+		There are some terminology.
+
+		Client		-	Here client is bookmyshow.com
+		Client ID	-	From google, they give a client ID which is public and
+						by which google recognise bookmyshow.com as google's
+						client.
+
+		Client Secret ID - For every client that google have, has a client
+						   secret id which is private only to bookmyshow.com
+						   , bookmyshow.com will not share this with everyone.
+
+		Resource Owner	-  bookmyshow.com wants my profile information from
+						   google. So, here I am the resource owner.
+
+		Resource/
+		Authorisation
+		Server		-	Here, when I will log in in bookmyshow.com my google
+						accounts details, google will authenticate that do
+						I have an account with google ? If I have it will
+						share my information with bookmyshow.com such as
+						my name, profile picture, email but not the password.
+						And there will be an access token which will be given
+						to the bookmyshow.com from google so that bookmyshow.com
+						can use my information that comes from google whenever
+						they need in bookmyshow.com's web site
+
+							LECTURE 22
+
+	->	Let's discuss about the parameters how to understand every details in a
+		URL.
+
+
+		scope	- 	client(bookmyshow.com) is just saying to the authorisation
+					server(google) that what are the details it needs of a resource
+					owner such as first name, last name, email, picture.
+
+		auth_url -	when the client wants something from authorisation server, server
+					will tell hit that url to be authorised.
+
+		client_id -	such as rahulshettyacademy.com has a client ID with google.
+					your developer should give you all this details.
+
+		response_type - 	What exactly we want from google ? response a code right?
+							this way the type is normally is code. or
+							you will be able to see in the endpoint of
+							"response_type".
+
+		redirect_url - After the authentication by google or any server it will
+					   redirect us to the web site where we want to authenticate
+					   ourself.
+
+		state - it is used for security purpose. such a  information that I am sending
+				to google should match the information from client also.
+
+
+	=>	99.99% the developer will give the authorisation URL. and in the web links,
+		we can find the scope, auth_url,redirect_url by key - value (scope =
+		sdnasdfnljkfanjfa & auth_url = sdfbjkadfnjlnaf) like this way.
+
+
+		This are the basic structure of an authentication url where you will
+		This things
+
+		grand type =
+		redirect_URL =
+		authorization_Server_URL=
+		Access_token_URL =
+		Client_ID =
+		Client_Secret_ID=
+		Scope=
+		response_type=
+		state=
+		How to pass the autho in request =
+
+
+		2 types of token a Authorisation server may provide, Access token & Refresh
+		token. Refresh token has a long term expire date compare  to Access token.
+
+
+					LECTURE 25 (Important watch it )
+
+	First need to hit a authorisation URL which will generate a new URL a
+	from new URL copy "code" values then put in Access token URL .
+	This Access token will generate an Access token which we will use in our
+	Redirect URL which will then give the access to the resources we need from
+	google for the user in client side (rahul shetty).
+
+	=>	Google never give the permission to automate any google account with OAuth
+		2.0. All you have to is always need to go to the Authorisation URL , provide
+		the details of email and password then collect the Code to generate
+		Access token
+
+	->	Till now we have seen what is OAuth 2.0 & its mechanism and how
+		it works. Now we are going to implement this in real time project.
+
+		1)	First create a collection variable in postman with name
+			"Naz_OAuth_2.0_Authentication".
+		2)	Create a GET request with name
+			"get_Hit_Authetiction_Google_Get_Code_Value". Then in "GET" request
+			put the link below or in "Params" provide the value of each variable
+			which will automatically create a link in your "GET" request. Params
+			are auth_url, scope, client_id,response_type,redirect_uri.
+
+		3)	Now, go to below link  in your browser & log in with your gmail id &
+			password.
+			Before it was is easy to log in through automation but now
+			google has stopped this service, where we has to log in manually.
+			log in with nazmul288@diu.edu.bd.
+
+			"https://accounts.google.com/o/oauth2/v2/auth?auth_url=https://
+			accounts.google.com/o/oauth2/v2/auth&scope=https://www.googleapis.
+			com/auth/userinfo.email&client_id=692183103107-p0m7ent2hk7suguv4vq22hj
+			cfhcr43pj.apps.googleusercontent.com&response_type=code&redirect_uri=
+			https://rahulshettyacademy.com/getCourse.php"
+
+			Once you hit the URL, you will get a new URL in your browser response.
+			in That URL there will a value with key "code". Store that variable
+			with the name "code_to_get_access_token".
+
+		4)	When you will log in with email & password you will get a link
+			Store this link in a new GET request
+			"random_just_use". This
+			"random_just_use" Request we are using
+			to extract such as "code" , "state" not for Testing purpose.
+
+
+		5)	IN "random_just_use" there is "params"
+			from there take the value of "code" and store it in global
+			variable name "code_to_get_access_token".
+
+		6)	Create a new POST request
+		"access_Token_Generate_by_the_code_from_previous" and use the link
+			to POST request it
+
+			"https://www.googleapis.com/oauth2/v4/token?code=4%2F0AY0e-
+			g6UUD1-sMKIpsxzb520ZVflKe7i8xD_oQk6X3t_fjDqhaROnrJncgGX7dEF0jl
+			lVg&client_id=692183103107-p0m7ent2hk7suguv4vq22hjcfhcr43pj.
+			apps.googleusercontent.com&client_secret=erZOWM9g3UtwNRj
+			340YYaK_W&redirect_uri=https://rahulshettyacademy.com/getCourse
+			.php&grant_type=authorization_code#"
+
+
+			Now, in code put the global variable "code_to_get_access_token"
+			put it in the "code" as "{{code_to_get_access_token}}".
+			Hit the send button you will see something like "access_token"
+
+		7) 	Now, Create a global variable empty name "access_token"
+			& write test in "access_Token_Generate" to get the access token
+			value and place it in global
+			=---------------------
+			const jsonData = pm.response.json();
+
+ 			const access_token = jsonData.access_token;
+ 			pm.globals.set("access_token",access_token);
+ 			------------------------
+
+		8)	make sure the "access_token" variable current value & initial value
+			is same.
+
+		9)	Now create a new POST request which is the actual test name
+			"Actutal_test_get_the_course_name".
+			As this request need authentication, we can not directly test the
+			request. That's why we need to do some settings so that we can run
+			the test. Now, do like below
+
+			i)	IN "Authorization" button select
+
+			ii)	 "Type = OAuth 2.0".
+
+			iii) "Add Authorization Date = Request URL"
+
+			iv)	 "Token = Aviable Token"
+
+				 put the Global variable "{{access_token}}"
+
+
+
+			v)	"Authorization Type = Authorization Code"
+
+				"CallBack URL = https://rahulshettyacademy.com/getCourse.php"
+				"Auth URL = "https://accounts.google.com/o/oauth2/v2/auth"
+				"Client ID = 692183103107-p0m7ent2hk7suguv4vq22hjcfhcr43pj
+				.apps.googleusercontent.com"
+
+				"Client Scret ID = erZOWM9g3UtwNRj340YYaK_W"
+
+				"Scope = https://www.googleapis.com/auth/userinfo.email"
+
+				"State = Anything just Write"
+				"Client Authentication = Send as Basic Auth Header"
+
+		10)	Now hit the send button you will see HTML response then click on
+			JSON then see the magic.
+
+
+							LECTURE 27
+
+		->	When we get the response after OAuth 2.0 authentication, put the JSON
+			into an online JSON editor where we can see the tree structure of the
+			JSON, such as Objects, array " {} means Object & [] means array " in
+			JSON format.
+
+		->	In javaScript "const" scope only inside the function but "var" scope
+			is global.
+
+		[ IMPORTANT - run authetication google - take the new url
+		 put it in random , from random take code, put the code in real such as
+		 redirect web page link , get access token , put it in public , use it
+		 in actual test authentication.
+
+
+		 Write the below code in Acutal test
+		 --------------------------------------------
+
+		// collect response in JSON format
+		const jsonData = pm.response.json();
+
+		// an Array to check Course Titles
+		const expectCourseTtiles = ["Selenium Webdriver Java",
+		"Cypress","Protractor"];
+
+		const actualCourseTitiles = [];
+
+		pm.test("Course name verification", function()
+	{
+    //jsonData is the main JSON then it goes to "courses" then
+    // inside "courses" has "webAutomation" then it find in
+    //"webAutomation" is there any "courseTitile" with the name
+    //"Cypress" then stores.
+    const cypressObject = jsonData.courses.webAutomation.find(m =>
+    m.courseTitle === "Cypress");
+
+    // this verifies it is an object or not. if not it prints
+    //"Cypress not found""
+    pm.expect(cypressObject).to.an("object", "Cypress not found");
+});
+
+pm.test("Properties verification", function(){
+
+    const cypressObject = jsonData.courses.webAutomation.find(m =>
+    m.courseTitle === "Cypress");
+
+    //check the obejct "cypressObject" have all this key properties
+    // courseTitle & price
+    pm.expect(cypressObject).to.have.all.keys('courseTitle','price');
+	});
+
+pm.test("Total Sum of api Courses", function(){
+
+    let sum =0;
+    // as "api" is an array ( arrays are defined with [] curly braces
+    // in JSON response) , "i" is less then the length & increses one
+    // each time
+    for(let i =0; i< jsonData.courses.api.length; i++){
+        // print the each "api" array index prices
+        console.log(jsonData.courses.api[i].price);
+
+        // convert string into INT & sum becomes sum + the price value
+        sum = sum + parseInt(jsonData.courses.api[i].price);
+    }
+    // print the sum
+    console.log(sum);
+
+    // sum should be equal to 90
+    pm.expect(sum).to.be.eql(90);
+	});
+
+	pm.test("Validate Course Titiles", function(){
+
+    //Using map function collecting the courseTtiles and pushing
+    // them into the empty array "actualCourseTitiles"
+    jsonData.courses.webAutomation.map(m=> actualCourseTitiles.push(m.courseTitle));
+    // print the new "actualCourseTitiles" array
+    console.log(actualCourseTitiles);
+
+    // compares the arrays value of "actualCourseTitiles" with
+    //"expectCourseTtiles"
+    pm.expect(expectCourseTtiles).to.eql(actualCourseTitiles);
+	});
+
+
+						LECTURE 32 (Must watch
+
+	JSON SCHEMA is the thing where it shows the JSON for mat and its type.
+	JSON Data is the data Format of that JSON Schema.
+	Below is a JSON Schema
+	------------------------
+
+		{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "instructor": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "services": {
+      "type": "string"
+    },
+    "expertise": {
+      "type": "string"
+    },
+    "courses": {
+      "type": "object",
+      "properties": {
+        "webAutomation": {
+          "type": "array",
+          "items": [
+            {
+              "type": "object",
+              "properties": {
+                "courseTitle": {
+                  "type": "string"
+                },
+                "price": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "courseTitle",
+                "price"
+              ]
+            },
+            {
+              "type": "object",
+              "properties": {
+                "courseTitle": {
+                  "type": "string"
+                },
+                "price": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "courseTitle",
+                "price"
+              ]
+            },
+            {
+              "type": "object",
+              "properties": {
+                "courseTitle": {
+                  "type": "string"
+                },
+                "price": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "courseTitle",
+                "price"
+              ]
+            }
+          ]
+        },
+        "api": {
+          "type": "array",
+          "items": [
+            {
+              "type": "object",
+              "properties": {
+                "courseTitle": {
+                  "type": "string"
+                },
+                "price": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "courseTitle",
+                "price"
+              ]
+            },
+            {
+              "type": "object",
+              "properties": {
+                "courseTitle": {
+                  "type": "string"
+                },
+                "price": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "courseTitle",
+                "price"
+              ]
+            }
+          ]
+        },
+        "mobile": {
+          "type": "array",
+          "items": [
+            {
+              "type": "object",
+              "properties": {
+                "courseTitle": {
+                  "type": "string"
+                },
+                "price": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "courseTitle",
+                "price"
+              ]
+            }
+          ]
+        }
+      },
+      "required": [
+        "webAutomation",
+        "api",
+        "mobile"
+      ]
+    },
+    "linkedIn": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "instructor",
+    "url",
+    "services",
+    "expertise",
+    "courses",
+    "linkedIn"
+  ]
+}
+
+
+-----------------------------------
+
+		Now the below is the JSON Data format of that JSON Schema
+
+		------------------------------
+		{
+    "instructor": "RahulShetty",
+    "url": "rahulshettycademy.com",
+    "services": "projectSupport",
+    "expertise": "Automation",
+    "courses": {
+        "webAutomation": [
+            {
+                "courseTitle": "Selenium Webdriver Java",
+                "price": "50"
+            },
+            {
+                "courseTitle": "Cypress",
+                "price": "40"
+            },
+            {
+                "courseTitle": "Protractor",
+                "price": "40"
+            }
+        ],
+        "api": [
+            {
+                "courseTitle": "Rest Assured Automation using Java",
+                "price": "50"
+            },
+            {
+                "courseTitle": "SoapUI Webservices testing",
+                "price": "40"
+            }
+        ],
+        "mobile": [
+            {
+                "courseTitle": "Appium-Mobile Automation using Java",
+                "price": "50"
+            }
+        ]
+    },
+    "linkedIn": "https://www.linkedin.com/in/rahul-shetty-trainer/"
+}
+
+		---------------------------------
+
+
+
+		This is an online editor where we can transform JSON Data into
+		JSON Schema or vaisversa
+
+		"https://www.liquid-technologies.com/online-schema-to-json-converter"
+
+
+		And there is JSON editor where we can see the JSON tree that how it
+		is formated by click on "tree" remember again object means "{}" &
+		array means "[]"
+
+
+		"https://jsoneditoronline.org/#left=local.coyumo&right=local.hezaqu"
+
+
+
+
+
+						LECTURE 35
+
+
+	MOCK SERVER WITH POSTMAN:-
+
+	Suppose, our developer is developing the API, in a sprint but as a tester
+	I should not wait for when the API will ready then test. Instead of that
+	one, I will create a mock server in postman where I will define my request
+	& response.Although all the date will be fake but the structure of API
+	will be same which one has been developing by the developer.
+	When the API will be ready, I will just change the URL & the data so that
+	I can run my tests. Using fake structure & fake data to make the test go
+	further. when everything will be ready we will just change the data &
+	the environment as I have the same fake format of data I don't need to
+	change the format because , I am building my test cases based on the
+	demo format.
+
+
+	1)	Go to POSTMAN there is name "Mock Server", click on "+" icon
+
+	2)	Now, give "Request URL" "getapitestingcourses" path such the
+		query parameters
+		"getbook/course?name=200" this url is common for real & mock
+		but only the main url will be changed after the real API is
+		developed.
+
+	3)	In "Response body" put the response that you would like to get when
+		you will hit the url.
+
+	4)	Give Mock Server Name.
+	5)	Select "NEXT" then you can click on "Save the Mock URL as new
+		environmental variable" which will create an automatic Environment
+		for you or you can select your own.
+
+		Make sure you select the Mock server default environment that you
+		have automatically created.
+
+	6)	Now, it will generate an automatic link which you can hit and will
+		get the response that you have given.
+
+	7) 	In your automatic environment there will be that link or you can
+		create your own environment and put that link.
+
+	8)	Test the API , you will see magic.
+
+	9)	If you want to add another Request into the same Mock Server (if
+		it is same parent link like "www.facebook.com/post" is a mock
+		& "www.facebook./photos" same parent url but different query
+		parameters)
+		then Create a new method inside that collection, put the link that you
+		want add for new request. Then, click on three dot "..." button
+		you will see something like "Add Example" then keep the same link
+		change the name of the example. In "body" then put the response that
+		you want to see as response when you will hit the link from "Request"
+		not the "Example". Also put status code that you want to see in
+		"Example".
+
+	10)	Now , go to the request, hit the link, you will see the response.
+
+	11)	You can add more example in Same Mock request.
+
+
+
+					LECTURE 39
+
+	->	SOAP services use SOAP protocol
+	->	SOAP messages are in XML format
+	->	In postman SOAP request are always get method
+
+	->	SOAP, Message has the tag like below format
+		xml>envelope>body>/body>envelope
+
+
+	1)	Now, create a new collect "SOAP Services" & create a new POST request
+		"SOAP_numbersToWordsRequest".
+
+	2)	put this link in request
+		"https://www.dataaccess.com/webservicesserver/NumberConversion.wso"
+
+	3)	take the below code from there
+
+	----------------------
+<soap12:Envelope xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+  <soap12:Body>
+    <NumberToWords xmlns="http://www.dataaccess.com/webservicesserver/">
+      <ubiNum>unsignedLong</ubiNum>
+    </NumberToWords>
+  </soap12:Body>
+</soap12:Envelope>
+----------------------------
+
+	4)	Now, click on "Header" then "Hidden" then uncheck on "Content-Type"
+
+	5)	Now, check the contract file what is the content type then
+		create a "Content-Type" in "Header" then put the same content type
+		("application/soap+xml; charset=utf-8")- This was in the contract link
+
+
+
+	6) click on  POST request "body" then "raw" then "xml" format.
+
+	7)	Change the value in any number in tag "ubiNum" such as 1000, 999
+		then hit the request you will see the response.
+
+	8)	Put this code in Request
+
+	--------------------
+
+
+
+//Converting xml into Json
+const xmlMakeJson = xml2Json(pm.response.text());
+
+// printing the Json format
+console.log(xmlMakeJson);
+
+
+//If SOAP response has ":" in tags then this is how we terves into the
+//main result
+const acutalValue = xmlMakeJson["soap:Envelope"]["soap:Body"]
+["m:NumberToWordsResponse"]["m:NumberToWordsResult"];
+const expectedValue = "ninety nine";
+console.log(acutalValue);
+
+pm.test("Validate Number To String", function(){
+
+    // the value "words_in_collection" is coming from collection
+
+    pm.expect(pm.collectionVariables.get("words_in_collection")).to.be.eql(acutalValue);
+    pm.response.to.have.status(200);
+});
+
+pm.test("Another way to check the number to words", function(){
+
+    // This include will check the entire xml to find "Ninety Nine"
+    pm.expect(pm.response.text()).to.include(pm.collectionVariables.get("words_in_collection"));
+})
+
+------------------------------
+
+
+							LECTURE 43
+
+		Newman is a CLI command line by which we can run our Postman code
+		in terminal/ command line. If we can run our code in command line,
+		then we can also execute our code in CI/CD pipelines like Jenkins.
+
+
+		1) First install node.js in your system.
+
+		2)	Now run the below comman in your terminal which will install
+			Newman
+
+			""""sudo npm install -g newman""""
+
+			you will see then message like this
+
+			""""New major version of npm available! 8.19.3"""
+
+		3)	Now, go to that folder terminal. from terminal
+			type """" ls -R"""" which will give you all the files in that
+			particular folder.
+
+		4) 	Now,  From your Postman go to the collection which you want to
+			run trough newman, when you will click on the collections three
+			dot "..." you will see a option "Export". Then export that
+			collection (Our Collection is "Library" ) in a folder. But this
+			collection is connected with the environment ("QA") & global
+			variables. Let's export these files also in the same folder
+			"Naz_Postman". Don't forget the CSV file where our data are
+			situated. Put that csv file "BooksDetails.CSV" in the same file
+			also.
+
+
+		5)	Now, to go to the folder terminal & put this line
+			-------------------
+
+			newman run fileName -d dataFile.CSV e- environmentFile.json
+			-g globalFile.json
+
+			------------------
+
+		6)	Then you will see, that program is running in the terminal line.
+
+
+
+						LECTURE 45
+
+		Newman HTML report generate :-
+
+
+		->	Go to the below link you will see how to generate html report
+			But I will provide step by step
+
+			"https://www.npmjs.com/package/newman-reporter-htmlextra"
+
+
+		1)	Before install make sure newman is present in your system
+
+		2)	Go to the folder terminal where you have put the JSON format of
+			the collection & collection related things.
+
+		3)	Run the below command
+
+			---- npm install -g newman-reporter-htmlextra ------
+
+		4)	Now, when we will run the command to run our postman collection
+			from terminal use extra code """"" -r htmlextra """""
+			such as below
+
+			-------------------
+
+			newman run fileName -d dataFile.CSV e- environmentFile.json
+			-g globalFile.json -r htmlextra
+
+			------------------
+
+		5)	Then it will automatically create an html report in our folder
+			and we can then click on the html to see the report
+
+
+
+						LECTURE 49
+
+
+		How can a team work together in postman?
+
+
+		=>	In teams , there can be multiple team mates, who will work
+			on the same project. We have code "Library" which is the main
+			code in master branch. Let's say it's on production. So, my
+			team mates, is saying we need to develop few more test cases
+			but not in original code ( master branch ). So, we will create
+			a fork where we will have all the code of master branch, then
+			we will add new test cases then push it into the master branch,
+			someone will review and  will accept it or will let us know
+			if we need to change anything.
+
+
+			1)	Click on collection's (...) three dot then "create fork"
+				Now, do whatever the changes you want to make.
+
+			2)	Click on the clone project (...) three dot then "create pull
+				request" give the title, description and click on the button.
+
+
+			3)	Now, reviewers will review the code and then they will
+				approve. Then you can "Merge" & delete the fork file as we
+				don't need it anymore.
+
+
+						LECTURE 59 GraphQL BASICS - 01
+
+
+		=>	Suppose in Netflix, there a user section where he write the name of the
+		actor, he gets all the details about the character name , character status
+		like dead or alive in series, his born place and all total episode by that
+		character but one thing such as
+
+		->	character name = situated in one Api which has Character Id, name, status,
+			gender age, origin.
+
+		=>	character status = situated in one Api which has Character status Id,
+			dimension, etc.
+
+		Which means, we are asking for some specific details but these details are
+		placed in different APIs or database or any legacy system  and these
+		platforms have so many data but we need only this certain informations
+		which are placed in different areas.
+
+		Here comes the GraphQL which gives us only the details that we want. GrapQL
+		talks to the back end server in Query way which provides us the details that
+		we are expecting.
+
+		=>	Over fetching - Such as from an API we only need the "ID", but if we
+			call the API it gives us all the details such as we only need the
+			"Book_id" from a "Get_book" API but if we call the "Get_Book" it will
+			send us the whole response which is called over fetching. Want one or
+			two things, gives back all the things.
+
+		=>	Performance Issue - Suppose There are 4 APIs , each has 5 fields that
+			means total 20 fields but I need only 1 field from each API. If I
+			call all the APIs together, there can be a performance issue which
+			should be avoided.
+
+		=>	With GraphQl we are not replacing our APIs but optimising the
+			performance of our architecture by introducing the GrapQL in our
+			back end architecture.
+
+		=>	Another magical point is that GraphQL can create data if
+			needed and can push in various APIs location where you want to set
+			such as with GraphQL I created 2 data for the  fields "book publish date"
+			 & "Version" Now, I can push these in 2 different data in this fields
+			 also
+			Facebook introduced the GraphQl
+
+							LECTURE 59 GraphQL BASICS -02
+
+
+		=>	Before asking for any thing we need to know the GrapQL Schema, means
+			how the developer design the schema  or GraphQL query so that we can
+			fetch the data from APIs, Database, CSV files or any where.
+
+		=>	Whenever we are in a project, we should the team members especially
+			developers that can you please give me the GrapQL schema so that I
+			can understand what the GraphQL can provide and based on that we can
+			create our query to fetch the data.
+
+
+		=>	Always ask for a "GraphQL" explorer to the developer where you can
+			find a "GraphQL" user interface by default in any project you work.
+
+			For us, we will use the
+			"https://rahulshettyacademy.com/gq/graphql" , once you go inside it,
+			you will find an UI of GraphQL
+
+		- In GraphQL there 3 things to remember type, fields, arguments.
+
+		Type =	It is like a class name or such as "AddBook" API name. By "type"
+				we go to the destination.
+
+		fields = It's like a variable name or method name if we compare this with
+				 a class.
+		arguments = suppose, I want a specific name from an API (such "getBookDetails)
+		if I give with argument it will give all the name but I provide argument
+		such as I want name of ID 101 it will provide us the name with ID 101.
+
+
+							LECTURE 60 - WRITING GRAPHQL QUERIES
+
+		-	GraphQL can retrieve the data & it can also create the data in back end.
+
+		 Now, go to "https://rahulshettyacademy.com/gq/graphql"
+		 you will see the graphQL URL, clear to write the code.
+
+		 We should always start by below to query in GraphQL.
+		 ------------
+		 query{
+
+		 }
+		 -------------
+
+		-	Inside the curly braces we need to write what kind of data we want.
+			For that, on your right side you can see "Documentation Explorer"
+			click on "query" you will see the fields.
+			Now let assume, we want a "character" name. If you observe the
+			"character" type it needs an argument which is mandatory
+			(characterId: Int!) , here factorial (!) sign means this field is
+			must such as which character ID we want, that can be ID 2, 4 any.
+			The Arguments can be int, String, boolean or any object for example
+			"episodes" takes argument type "EpisodeFilters" & "Pagination".
+
+			in GraphQL query writing rules is
+			-------
+			query{
+			type(argument){
+			field01
+			field02
+			}
+			}
+			------------
+
+			-----------
+				query
+				{
+				  episode(episodeId:2){
+				    name
+				    created
+				  }
+				  characters(filters:{name:"Rahul"}){
+				    info{
+				      count
+				      prev
+				      pages
+				      next
+				    }
+				    result{
+				      id
+				      name
+				      species
+				      image
+				    }
+				  }
+				}
+			-------------
+		Lets break down this code
+
+		- first "query{" = to start the code inside,
+		"episode(episodeId:2)" = episode is a type if we right in query
+		we can see and it expect an argument "episodeId:2") which is mandatory as
+		it has a factorial sign in right query details documentation.
+		Now, with this ID 02, I want "name" & "created" fields data.
+
+		- Next,  "characters" takes 2 arguments but which is not mandatory but we
+		  gave the "filters". In filters we can see its not an int or String type
+		  it is a "CharacterFilters" type. If we click on CharacterFilters" argument
+		  we need to provide any of the fields that we want like "name", status,
+		  species ,type, gender. But we pass "name:"Rahul".
+
+		- Now , if we click "characters" then its TYPE "CharactersResult!", it has
+		  2 fields "info!" & "results!"
+		  we can write the info like below
+		  --------------------
+		  			info{
+				      count
+				      prev
+				      pages
+				      next
+				    }
+		// we want count, prev, pages,next from info
+
+		-----------------------
+
+		 		result{
+				      id
+				      name
+				      species
+				      image
+				    }
+
+		// we want id, names, species, images from results
+		-----------------------
+
+
+					LECTURE 62 - QUERY VARIABLES
+
+
+	=>	 In GraphQL at the bottom we can see "Query Variables" button, just click
+		 on that where we can initiate the variables like below
+		 -------------
+
+		 {
+		  "episodeIdNaz": 2,
+		  "nameNaz": "Rahul"
+		}
+		---------------
+		Now we can use the variable like below,
+		-------------------------------
+		query ($episodeIdNaz: Int!, $nameNaz: String) {
+				  episode(episodeId: $episodeIdNaz) {
+				    name
+				    created
+				  }
+				  characters(filters: {name: $nameNaz}) {
+				    info {
+				      count
+				      prev
+				      pages
+				      next
+				    }
+				    result {
+				      id
+				      name
+				      species
+				      image
+				    }
+				  }
+				}
+
+		---------------------------------
+
+
+		Now, go to the Postman , create a new collection "CheckGQLValue" in
+		"NazmulBooksAPI_Revise" work space.
+
+	=>	Now, go to the "https://rahulshettyacademy.com/gq/graphql" write the
+		graphQl code. Inspect the element, then click on the request that we
+		submit in web site to generate the GraphQL response.
+		Click on the below tap in "Network" then click on the "grapgql" name then
+		in general copy the "Request URL".
+
+	=>	Now , create a POST request in the 	"GraphQL Test" collection with the name
+		(Remember all the request of GraphQL is POST request) "CheckGQLValue" put the
+		URL that we got "https://rahulshettyacademy.com/gq/graphql?" in URL.
+		-> Click on Body then GraphQL.
+		-> Then copy the GraphQL code ( the above one in LECTRUE 62) and put it in
+		   body then in "Query Variables"put the variables.
+		-> Now, in test body you can check the status , you can modify the code to
+		   pass the test as you want.
+
+
+
+						LECTURE - MUTATION
+
+	By Mutation we can add the data or modify the data where query we can fetch the
+	data. In graphQL code box where we used "query{ code inside}" for query, for
+	mutation we use "mutation{code inside}".
+
+	-> Now in GraphQL page click on mutation then you will understand. place this
+		below code to see the difference
+	---------------
+
+			mutation{
+			  createLocation(location:{ name:"Bangladesh",type:"Country",dimension:"Wes"}){
+			    id
+			  }
+			}
+
+	---------------
+
+	We can now load the Mutation in same way as we loaded in Postman for "query" in
+	graphQL
+		mutation {
+  createCharacter(character: {name: "Nazmul", type: "Hero", status: "alive", species: "Human", gender: "male", image: "PNG.ong", originId: 2765, locationId: 2765}) {
+    id
+  }
+}
+
+		IN POSTMAN we can also declare variables in collections or in any where in
+		postman and use it in GraphQL.
+
+		=>	When we want to use postman variables , we can use {{variableName}}
+			in "body" , in "GraphQL variables section check the request
+			"ViewCharActerID" in "GraphQl Collection".
+
+		=>	When you will run two request together "CreateCharActer" & ViewCharActerID
+			you can in "test" button how "CreateCharActer" storing the character Id
+			in collection variables, and you will also notice how "ViewCharActerID"
+			calling that collection variables in its "GraphQl Variables" tab & using
+			properly.
+
+
+
+
+
+
+
+
+
+
+

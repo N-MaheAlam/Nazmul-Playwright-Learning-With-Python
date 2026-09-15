@@ -115,6 +115,19 @@
 86. Scenarios
 87. Scenario Outline
 88. Given, When, Then, And
+89. scenarios: ( "path") - for step definition file
+90. {username}, {password} - parameter to provide in step definition files
+91. parsers.parse ( to indicate step definition file that in this step definition there are variables
+    come from Examples in feature files
+92. shareable_data [ this fixture is used in step definition files so that we can keep our pages of each
+     step definition method in a dictionary and call them by key when needed in another step
+     definition method
+
+93. jenkins - free style project
+94. absolute path for jenkins
+95. add step
+96. execute shell
+
 
 
 
