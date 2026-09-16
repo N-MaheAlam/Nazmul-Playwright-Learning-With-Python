@@ -1,27 +1,6 @@
 
 		 ============= LECTURE 01 - WHAT IS POSTMAN =============
 
-
-	Endpoint = is the URl where the APIs are hosted.
-
-	Resources - google.com/maps
-				google.com/images
-				google.com/search
-
-				-	Here "google.com" is the end point or base URL and "maps",
-					"images", "search" are the resources.
-					such as images resource has the image APIs, maps resource
-					has the only maps.
-
-		Path Parameter	=	google.com/maps/CA/toronto
-		 This a path parameter.
-
-		 Query Parameter	=	google.com/maps?hotel/49494?
-		 Here the question(?) represents the query parameter.
-		 query parameter is used to sort or filter the resources.
-
-
-
 ->	With postman you can develop the APIs as well as test them.In java or Python
 	for APIs testing you need variables, environments, workflows and data driven
 	components. I mean write few lines of code to declare the variables and also
@@ -60,7 +39,120 @@
 	and backend will connect, I mean when customer give the details in Angular website, how
 	the backend Java process the data and give response? That's where also comes APIs into the
 	picture. Both front and back end communicate thorough http protocols and their request and
-	response is in JSON or XML format.
+	response is in JSON or XML format. Means, when the front end provides details from the
+	customer, it creates  a format either a JSON or a XML request to the APIs ( you can call it
+	as a middle layer between frontend and backend ) and APIs sends this to backend to trigger
+	the create reservation and provide a response to APIs and then APIs send it to the front
+	end such as successful message " You reservation is created". Both JSON or XML does not
+	belongs to any language but can be used by all the languages such as python, java, java-
+	script. These languages have the parser to parse the APIs.
+
+
+	Now, when developers create APIs they follow some rules and regulations, APIs can be REST
+	or SOAP UI services. Remember APIs is one kind of web services of two web services REST
+	and SOAP. Most of web the websites such as google, facebook, instagram use REST APIs as
+	it is light weight, easy to maintain whereas SOAP has more conditions, restrictions,
+	hard to maintain.
+
+	END POINT/ BASE URL:
+	End point is nothing but the location in server where APIs are situated. First condition,
+	to use an API, we need to reach to the location of that API. Suppose, the apple is on the
+	2nd basket but if I look for it in 3rd bucket, I will not get it right? Same like APIs,
+	they are hosted in an endpoint which we will use to call that apis.
+
+	HTTP methods which are commonly used to communicate with REST APIs are
+
+
+
+	1) GET:
+
+	GET method is used when we want to extract information for the given URL. GET method is
+	for only retrieve or display the data and no other effect on the data.
+
+
+	2) POST:
+
+	When we want to create something on the server, we use POST method. For example, we want
+	to store a new customer. So, we send customer name, details, address and hit the submit
+	or sign up button and a new customer ID is generated and stored in server's database with
+	that ID.
+
+	3) PUT:
+
+	When we want to update something in the server, we use the PUT method. For example, I want
+	to change the address of the customer ID, 1010.
+
+
+	POST, GET, PUT, DELETE
+	CRUD - Create, Retrieve, UPDATE, DELETE
+
+
+
+
+	Endpoint = is the URl where the APIs are hosted.
+
+	Resources - google.com/maps
+				google.com/images
+				google.com/search
+
+				-	Here "google.com" is the end point or base URL and "maps",
+					"images", "search" are the resources.
+					such as images resource has the image APIs, maps resource
+					has the only maps.
+
+		Path Parameter	=	google.com/maps/CA/toronto
+		 This a path parameter.
+
+		 Query Parameter	=	google.com/maps?hotel/49494?
+		 Here the question(?) represents the query parameter.
+		 query parameter is used to sort or filter the resources.
+
+	So, the path parameter is like,
+
+	    base_url/resources/sub_resources/numbers_OR_anything
+	    www.facebook.com/images/12592
+
+	And, the query parameters look like
+
+	    base_url/resources?filter_OR_sort_by= 20/12/2026
+	    www.facebook.com/image?sort_by_dates=20/12/2026
+
+	    each and every query parameters are separate by "&" for example
+
+	    www.facebook.com/image?q=december&q=15th&q=3.30pm
+
+	When developer designs APIs, they make sure that after hitting a specific URL, we get the
+	API response. This URL will have END POINT, resources and also parameters
+
+	BASE_URL/RESOURCES/PARAMETERS[ path or query]
+
+
+	HEADERS/COOKIES:
+	Headers represents additional meta data associated with the API request and response. In
+	simple terms, we will send additional details to API to process our request. For example,
+	authorisation, to perform an individual request for a specific customer, we need to send
+	the authorisation (log in cookies  such as username and password or token, using headers
+	so that APIs can perform our request.
+
+    As a QA, if I am ordered to do the API test, I need the contacts to perform the test such
+    as, base url, resources, query parameters, http method (get/post/put/delete/patch/head/options)
+    sample body, response body
+
+    GET: Retrieves data or a resource from the server. It does not change anything on the server.
+
+    POST: Sends new data to the server to create a resource.
+
+    PUT: Replaces an entire existing resource, or creates it if it is missing.
+
+    PATCH: Applies small, partial updates to an existing resource.
+
+    DELETE: Removes a specific resource from the server.
+
+    HEAD: Asks for the exact same headers as a GET request, but without returning the actual response body.
+
+    OPTIONS: Shows which communication options or methods the server supports for a specific URL.
+
+
 
 						LECTURE 03 - INSTALLING POSTMAN & CREATING WORK SPACE
 									 ADDING POST REQUEST.

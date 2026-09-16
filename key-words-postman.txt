@@ -1,0 +1,23 @@
+
+
+
+
+1. GET
+2. POST
+3. PUT
+4. DELETE
+5. PATCH
+6. HEAD
+7. OPTIONS
+8. Base URL
+9. resources
+10. parameters
+11. path parameters
+12. query parameters
+13. body
+14. raw
+15. collection
+16. request
+17. contacts
+13. request body
+14. response body
