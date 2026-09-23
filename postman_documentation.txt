@@ -280,13 +280,34 @@
 		place in delete book. But in examples we added manually this time we will
 		place in one place and will be run by another place also.
 
+	->  You need to make sure the JSON Schema response is correct as
+	    expected ( hierarchy of data, how they are organised in the JSON format).
+	    I mean the output should be similar like the data (JSON Schema ) that is given by
+	    developer.
+
+	->  We must check the functional automation, for example, when we add book to the
+	    library, in response we get an ID, which we will dynamically place in the next
+	    request GET_Book using scripts and also dynamically we will place it in
+	    Delete_Book so that we can validate it. This is one kind of functional testings.
+
+	->  TRY_CATCH Mechanism:
+	    Sometimes when we will try to add a book, it might show that book is already
+	    present. So, the JSON response will not be the same. Is it a bug ? No, it is
+	    an error that we might end up with. So, fix the we need to check if the name
+	    or ID of this book is present before we run the test and delete it first. Then
+	    we will perform our test. In this type of scenarios, we should use the try-catch
+	    mechanism.
+
 
 							LECTURE 07 - CREATE ENVIRONMENT IN WORKSPACE
 
 
 		"Environment"
 
-		-> An environment is a set of variables you can use in your Postman
+		An environment in Postman is a set of key-value pairs that lets you store and
+		manage reusable variables for your API requests.
+
+	->  An environment is a set of variables you can use in your Postman
 		requests. You can use environments to group related sets of values
 		together and manage access to shared Postman data if you are working
 		as part of a team.
@@ -326,7 +347,9 @@
 
 		  -> This "base_url" is indicating the value that has come from
 		  	 UAT environment or QA Environment according to the environment
-		  	 which we have selected.
+		  	 which we have selected. we use 2 curly braces to tell the postman
+		  	 that it is a variable coming from environment variable like
+		  	 {{base_url}}/Library/AddBook.php
 
 		4)	there should be error when we will try to run our script in any
 			environment, make sure the initial value and current value are same
@@ -343,7 +366,13 @@
 
 		Global -> Collection -> environment -> data -> local
 
-			i)	global - which can be used thought out the work-space.
+			i)	global - which can be used thought out the work-space. I mean
+			    any collection, environment or request will be able to use
+			    the global variables. If you click on the environment tab on
+			    your left you will the button "globals" at the bottom of your
+			    right side. [ Every postman update brings something new or
+			    change the location of the button or anything ]
+
 		   ii)	Collection- this can be used in a collection such in
 		  		every get, post, delete.
 
@@ -362,26 +391,32 @@
 
 						Lecture 09 - SCRIPTING IN TEST
 
+        New Version of PM, we will see only "scripts" button. If we click on
+        that, we will see the "Before Request" and "After Request" button
+
 
 		So, In postman there is "pre-request scripts" where we will write code
 		that what we want to add in our test before it runs.On the other hand
-		"Tests" we will write code when the test executes and we want match some
-		criteria.
+		"Tests" we will write code when the test executes and we want to match
+		some criteria.
 
 		->	There is an object "pm" by which we can call any functions or method
-			in our test scripts or pre request scripts.
+			in our test scripts or pre request scripts and to use the variables
+			data in our tests, means to access the pre-request and after response
+			data.
 
 		Scripting in "AddBook"(Write this script in "test" as the below function
-		will work after test thats why we put it in "Test"
+		will work after test that's why we put it in "Test"
 
 
 
 
 
 		/*-
-		This variable store the response in json format. The response can be
-		anything such as HTML,XML,TEXT,JSON objects. So it converts that response
-		into json format and stores in "jsonResponseStore".
+		This variable "jsonResponseStore" store the response in json format.
+		The response can be anything such as HTML,XML,TEXT,JSON objects.
+		So it converts that response into json format and stores in
+		"jsonResponseStore".
 		-------------------------- */
 		 const jsonResponseStore = pm.response.json();
 
