@@ -8,7 +8,7 @@
 
 	But in postman you already have
 	some features where you can just put the values for using in tests. In addition
-	you anyone wants to do the data driven testing they can just load the data file
+	anyone wants to do the data driven testing they can just load the data file
 	and execute the tests. and last but not least, when ever we run a test there
 	can be some pre request such as delete the cookies, add some functionalities
 	which must be followed before test accomplishment. Theses sort of features can
@@ -84,7 +84,7 @@
 
 
 	POST, GET, PUT, DELETE
-	CRUD - Create, Retrieve, UPDATE, DELETE
+	CRUD - CREATE, RETRIEVE, UPDATE, DELETE
 
 
 
@@ -134,8 +134,8 @@
 	the authorisation (log in cookies  such as username and password or token, using headers
 	so that APIs can perform our request.
 
-    As a QA, if I am ordered to do the API test, I need the contacts to perform the test such
-    as, base url, resources, query parameters, http method (get/post/put/delete/patch/head/options)
+    As a QA, if I am ordered to do the API test, I need the contracts to perform the test such
+    as, base url, resources, parameters, http method (get/post/put/delete/patch/head/options)
     sample body, response body
 
     GET: Retrieves data or a resource from the server. It does not change anything on the server.
@@ -369,7 +369,7 @@
 			i)	global - which can be used thought out the work-space. I mean
 			    any collection, environment or request will be able to use
 			    the global variables. If you click on the environment tab on
-			    your left you will the button "globals" at the bottom of your
+			    your left you will see the button "globals" at the bottom of your
 			    right side. [ Every postman update brings something new or
 			    change the location of the button or anything ]
 
@@ -392,18 +392,19 @@
 						Lecture 09 - SCRIPTING IN TEST
 
         New Version of PM, we will see only "scripts" button. If we click on
-        that, we will see the "Before Request" and "After Request" button
+        that, we will see the "Before Request" and "After response" button
 
 
-		So, In postman there is "pre-request scripts" where we will write code
+		So, In postman there is " Before request scripts" where we will write code
 		that what we want to add in our test before it runs.On the other hand
-		"Tests" we will write code when the test executes and we want to match
+		"After response" we will write code when the test executes and we want to match
 		some criteria.
 
 		->	There is an object "pm" by which we can call any functions or method
 			in our test scripts or pre request scripts and to use the variables
 			data in our tests, means to access the pre-request and after response
-			data.
+			data. Any postman related object or built in function can only be
+			called by "pm".
 
 		Scripting in "AddBook"(Write this script in "test" as the below function
 		will work after test that's why we put it in "Test"
@@ -418,7 +419,7 @@
 		So it converts that response into json format and stores in
 		"jsonResponseStore".
 		-------------------------- */
-		 const jsonResponseStore = pm.response.json();
+		 const response_body_json_format = pm.response.json();
 
 		/*- Here,"pm" is an object which call a method "test". Now, this "test"
 		method takes 2 arguments one is test name ( we can give what ever we want)
@@ -430,23 +431,23 @@
 
 		    /*
 		    checking the response have a status code 200.Here, "pm" is object
-		    "reponse" is the response message we get after test runs. "to" &"have"
+		    "response" is the response message we get after test runs. "to" &"have"
 		    is a sequence to go to "status". Status can be 200, 404,401 that will
 		    come from the response.
 		    ----------------------------*/
 		    pm.response.to.have.status(200);
 
-		    /* In "expect()" method we pass the variable "jsonResponseStore"
+		    /* In "expect()" method we pass the variable "response_body_json_format"
 		        which we know the JSON format of the result or response.
-		        Checking if the reponse has a property "Msg".
+		        Checking if the response has a property "Msg".
 		        -----------------------------------*/
-		    pm.expect(jsonResponseStore).to.have.property("Msg");
+		    pm.expect(response_body_json_format).to.have.property("Msg");
 
 		    /*
-		     In "jsonResponseStore" variable there a attribute "Msg".
+		     In "response_body_json_format" variable there a attribute "Msg".
 		     Expecting "Msg" attributes value will be "successfully added".
 		    ---------------------- */
-		    pm.expect(jsonResponseStore.Msg).to.eql("successfully added");
+		    pm.expect(response_body_json_format.Msg).to.eql("successfully added");
 
 		})
 
@@ -484,12 +485,16 @@
 
 		 //Generates a random value between 0 to 100 & store in "randomValue"
 		 //------------------------------
-		  const randomValue =pm.variables.replaceIn('{{$randomInt}}');
+		  const randomValue =pm.variables.replaceIn('{{$randomInt}}'); or
+
+		 or
+
+		  Math.floor(Math.random() * 1000000)
 
 		  /*
 		  In Collection "Collection For Book" , there is variable "isbn",
 		  which will be  set before the test executes in pre-request, and
-		  "isbn" value will be combination of compnay code "companyPrefix"
+		  "isbn" value will be combination of company code "companyPrefix"
 		  & random Variable "randomValue"
 		  -----------------------------------*/
 		  pm.collectionVariables.set("isbn", companyPrefix+randomValue);
@@ -500,7 +505,9 @@
 		-> Now, go to collection level (Library) add a variable "isbn"
 
 		-> Now , go to "Add Book" then replace the "isbn" number with
-			["{{isbn}}] in body JSON code
+			["{{isbn}}"] in body JSON code and make sure the value in
+			json body is in double quote as the values in json body
+			in double quote.
 
 			such as below
 			-----------------
@@ -515,7 +522,7 @@
 			-----------------
 
 
-						Lecture 11 - HEADER ASSERTION IN TEST SCRIPT
+						Lecture 13 - HEADER ASSERTION IN TEST SCRIPT
 
 
 	->	Now go to the Test script of "AddBooks", Write the below code
@@ -535,7 +542,7 @@
 		    pm.expect(pm.response.headers.get("Content-Type")).to.
 		    eql("application/json;charset=UTF-8");
 
-		    /* Expecting the response time will be below 2000 miliseconds.
+		    /* Expecting the response time will be below 2000 milliseconds.
 		    ---------------*/
 		    pm.expect(pm.response.responseTime).to.be.below(2000);
 
@@ -550,14 +557,14 @@
 
 
 
-    					Lecture 12 -  STORE BOOK ID IN ENVIRONMENT FROM TEST
+    					Lecture 14 -  STORE BOOK ID IN ENVIRONMENT FROM TEST
     								  SCRIPT.
 
 
     	Now, When we you run the "AddBook" request it will generate a "ID".
     	I want to grab that "ID" value from test script and want to store in my
     	environments(QA & UAT). Then This ID will be given in Get Book  url and also
-    	the ID will be placed inDelete Book url . To Do So,
+    	the ID will be placed in Delete Book url . To Do So,
 
     	->	go to every environment create a "book_id" in both environment.
     		Don't put any value. just the name.
@@ -587,12 +594,16 @@
 			are just adding small pieces of code in our framework not changing the
 			entire structure in every lecture.
 
+			As we are just setting the variables in environment level or as we are
+			not testing anything such as json body, status code, ID, we can just
+			write this code without creating a new test
+
 			pm.test("Test 03: Store Book ID in environment", function(){
 
 			    // collect the response in json format in "jsonData" variable
 			    const jsonData = pm.response.json();
 
-			    // Store "ID" from the reponse in "book_id"
+			    // Store "ID" from the response in "book_id"
 			    const book_id = jsonData.ID;
 
 			    // In environment set the "book_id" environment value into this
@@ -608,7 +619,7 @@
 
 
 
-    					Lecture 13 - VERIFY ADD BOOK REQUEST MESSAGE IS SAME AS
+    					Lecture 15 - VERIFY ADD BOOK REQUEST MESSAGE IS SAME AS
     								 GET BOOK RESPONSE MESSAGE.
 
 
@@ -681,14 +692,16 @@
 		    	(pm.collectionVariables.get("isbn"));
 		      })
 
-						Lecture 14 - VALIDATING JSON SCHEMA
+						Lecture 16 - VALIDATING JSON SCHEMA
 
 
 		Important topic :- Validating Json Schema
 
 
 		So, JSON Schema is a format which shows, what are the types of
-		Json messages such as string , integer, boolean etc. Our job is to
+		Json messages such as string , integer, boolean, is all the
+		property are coming correctly in json response, is all the
+		required property are shown up or not etc. Our job is to
 		validate the request that we are sending is giving us the same json
 		schema in response.
 

@@ -21,3 +21,38 @@
 17. contacts
 13. request body
 14. response body
+15. pm
+16. test
+16. function
+15. globals
+16. collectionVariables
+17. response
+17. get
+18. set
+19. {{variable_name_in_request_body_dynamically}}
+20. status
+21. to
+22. have
+23. property
+24. pm.globals.get
+25. pm.globals.set
+25. pm.test("Test Name", function(){
+
+})
+26. pm.response.to.have.status(200)
+27. pm.expect(pm.response.json).to.have.property("property_name")
+28. pm.expect(pm.response.json.Msg).to.eql("check the message content in json")
+29. pm.response.to.have.header("Content-type")
+30. pm.expect(pm.response.headers.get("Content-type")).to.eql("application/json;charset=UTF-8")
+31. pm.expect(pm.response.responseTime).to.be.below(1200)
+32. pm.expect(pm.response.text()).to.include("successfully")
+33. JSON Schema [ the format/ type of the property of the APIs]
+34. pm.response.to.have.jsonSchema(json_schema_validation)
+35. pm.collectionVariables.set("bookd_id", "generated_book_id")
+36. pm.collectionVariables.get("bookd_id", "generated_book_id")
+37. pm.environment.set("", "")
+38. pm.environment.get("", "")
+39. pm.response.to.have.jsonSchema(json_schema_validation_variable_stored_name)
+
+
+
