@@ -48,11 +48,18 @@
 32. pm.expect(pm.response.text()).to.include("successfully")
 33. JSON Schema [ the format/ type of the property of the APIs]
 34. pm.response.to.have.jsonSchema(json_schema_validation)
-35. pm.collectionVariables.set("bookd_id", "generated_book_id")
-36. pm.collectionVariables.get("bookd_id", "generated_book_id")
+35. pm.collectionVariables.set("book_id", "generated_book_id")
+36. pm.collectionVariables.get("book_id", "generated_book_id")
 37. pm.environment.set("", "")
-38. pm.environment.get("", "")
+38. pm.environment.get("variable_name_in_environment")
 39. pm.response.to.have.jsonSchema(json_schema_validation_variable_stored_name)
+40. pm.collectionVariables.set("variable_name_in_collection",
+    pm.iterationData.get("name_of_the_variable_in_csv_file")
+    //  This loads the variable from csv file. When we will run the whole collection,
+        we might see a button where it says to upload a csv file. We can then upload
+        and run the automation.
+
+ 41.
 
 
 

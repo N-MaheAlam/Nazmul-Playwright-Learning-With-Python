@@ -235,7 +235,7 @@
 
 
 
-						LECTURE 05 - ADD  DELETE REQUEST IN COLLECTION
+						LECTURE 05 -  DELETE REQUEST IN COLLECTION
 
 	->	Add a new "Post" request where we will delete books.
 		put that url in POST (https://rahulshettyacademy.com/Library/DeleteBook.php).
@@ -781,7 +781,10 @@
 		--------------------------
 
 
-							LECTURE 15
+					LECTURE 17 -    getting the isbn from Collection
+							& aisle from request body and comparing the
+							generated ID in response by concatenating the
+							isbn and aisle
 
 		In AddBook we generated the ID by  "isbn" & "aisle" number.
 		Now, Let's verify the ID we produced is same as response.
@@ -801,7 +804,7 @@
     	/*-
     	normally the response that we get, its in json format
     	and we can access to that by "pm.response.json() -- but
-    	to get access in request body wee need to parse it into
+    	to get access in request body we need to parse it into
     	JSON & we need to access by (pm.request.body.raw) [As we
     	can see in body we have selected "raw" & there is json
     	format"
@@ -811,7 +814,7 @@
     	// Now, access the body messages "aisle" & store
      	const aisle_no = add_request_json.aisle;
 
-    	// concate the isbn_no & aisle_no
+    	// concat the isbn_no & aisle_no
      	const real_id = isbn_no+aisle_no;
 
     	// compare the value from request & response
@@ -819,7 +822,7 @@
 }		)
 --						----------------
 
-						LECTURE 16 - DATA DRIVEN TESTING
+						LECTURE 18 - DATA DRIVEN TESTING
 
 
 		 DATA DRIVEN TESTING from CSV file
@@ -864,17 +867,25 @@
 			the magic.
 
 
-						LECTURE 17 & 18 (important) - DELETE AN EXISTING DATA & RERUN
-													  THE REST.
+						LECTURE 19 & 20 (important) -
+						DELETE AN EXISTING DATA & RERUN
+						THE REST AND USE OF TRY-CATCH
 				(Always see this lecture important for interview)
 
-	->	Suppose we want to add a book in "AddBook" but the book is already
+	->	Suppose we want to add a book in "AddBook". Let's say the book is already
 		exists which means that at the starting we produced a unique "isbn"
-		number by "CompnayCode" & "randomint". SO, suppose there can be same
+		number by "CompanyCode" & "randomInt". So, suppose there can be same
 		isbn valued book & it will show that the book is already exists &
 		will get status code 404 and test will fail. So what we will do then?
 		Here, the API is not wrong but our data. So we have to clean up the
-		data then run the test.
+		data then run the test. Here the TRY-CATCH mechanism comes into
+		picture which means we will try to  run some assertions such as
+		status code, time stamp, book added success message in try block.
+		If the assertions doesn't run due to error such as book already exists
+		it will go to catch block before failing the test. Once we catch the
+		error, the catch block will try to fix it as we will write some code
+		in catch block such if book already exists, it will first run the
+		delete book, then it will perform all the tests, assertions.
 
 
 	->	So, if we get such kind of error such as for our test it will show
@@ -886,11 +897,18 @@
 
 
 
-							LECTURE 20
+							LECTURE 22 - OAuth 2.0
 
 	->	OAuth 2.0  is  the industry-standard protocol for authorization.
-		such as , if we want to see face book post or anything, we must
-		first log in right.
+	    OAuth 2.0 is nothing but a strong security umbrella which we can
+	    achieve in many grant types such as Authorisation code, client
+	     credentials, (many ways).
+		such as , if we want to see facebook post or anything, we must
+		first log in right. OAuth 2.0 gives you multiple ways (grant types)
+		to use the APIs. For example when we try to sign in a website we
+		have noticed several times it says you can log in with your email or
+		password OR you can log in with facebook, Google, Linkedin. These
+		are authorisation code grant types.
 
 	->	OAuth comes with multiple grant types which means multiple
 		authorisation flows. Authorisation code and client credentials
@@ -904,23 +922,27 @@
 
 
 
-							LECTURE 21- OAuth 2.0 Definition (Important )
+							LECTURE 23- OAuth 2.0 Definition (Important )
 
 	->	OAutho 2.0 is needed when?
 		Suppose, I want to sign up in an web site where I can sign up with
-		my face book or google credentials which means , I don't need to
+		my facebook or google credentials which means , I don't need to
 		create an account on that web site, It will bring my profile
-		information from google or face book but it can not bring my password.
+		information from google or facebook but it can not bring my password.
 		It is good for the 3rd party web site as it doesn't need to store
 		my profile details. Web site can crash or can be hacked which is
 		risk right? So, that's why the can pull the information from google
 		whenever we will try to log in into the 3rd party web site by giving
-		our email & password to google server. Each time you will try to log
+		our email & password to google server. It's helpful for the website
+		such as bookmyshow.com, as customers log in with google all the information
+		are stored in google. So, in future if bookmyshow crashes it has its user
+		information in google and clients can easily log in again with google
+		information. Each time you will try to log
 		in, the 3rd party web site will show to log in by google.
 
 
 		Suppose, we want to log in at bookmyshow.com where we can log in by
-		giving our google email and password. In OAuth 2.0 Mechanisim
+		giving our google email and password. In OAuth 2.0 Mechanism
 		There are some terminology.
 
 		Client		-	Here client is bookmyshow.com
@@ -947,7 +969,7 @@
 						can use my information that comes from google whenever
 						they need in bookmyshow.com's web site
 
-							LECTURE 22
+							LECTURE 25 -> How work flows
 
 	->	Let's discuss about the parameters how to understand every details in a
 		URL.
@@ -955,22 +977,32 @@
 
 		scope	- 	client(bookmyshow.com) is just saying to the authorisation
 					server(google) that what are the details it needs of a resource
-					owner such as first name, last name, email, picture.
+					owner such as first name, last name, email, picture. Or you
+					can say scope is the accessible limit that a client (bookmyshow)
+					ask to the authentication server. For example, only for last
+					and first name bookmyshow needs to send a different scope to
+					the google. For image, address, picture bookmyshow needs to
+					send a different scope to google.
 
 		auth_url -	when the client wants something from authorisation server, server
-					will tell hit that url to be authorised.
+					will tell hit that url to be authorised. For example, when
+					bookmyshow is asking for the resource owners details such as
+					name, email, google is saying tell your resource owner to
+					hit that url where he/she needs to provide the email and password
+					of the google account.
 
 		client_id -	such as rahulshettyacademy.com has a client ID with google.
 					your developer should give you all this details.
 
 		response_type - 	What exactly we want from google ? response a code right?
-							this way the type is normally is code. or
+							this way the type is normally is code or otp. or
 							you will be able to see in the endpoint of
 							"response_type".
 
 		redirect_url - After the authentication by google or any server it will
 					   redirect us to the web site where we want to authenticate
-					   ourself.
+					   ourself means Once i give the google email and password
+					   I will be redirected to the bookmyshow.com
 
 		state - it is used for security purpose. such a  information that I am sending
 				to google should match the information from client also.
@@ -1000,11 +1032,11 @@
 		token. Refresh token has a long term expire date compare  to Access token.
 
 
-					LECTURE 25 (Important watch it )
+					LECTURE 27 - OAuth 2.0 in real example (Important watch it )
 
 	First need to hit a authorisation URL which will generate a new URL a
 	from new URL copy "code" values then put in Access token URL .
-	This Access token will generate an Access token which we will use in our
+	This Access token URL will generate an Access token which we will use in our
 	Redirect URL which will then give the access to the resources we need from
 	google for the user in client side (rahul shetty).
 
@@ -1055,12 +1087,7 @@
 		"access_Token_Generate_by_the_code_from_previous" and use the link
 			to POST request it
 
-			"https://www.googleapis.com/oauth2/v4/token?code=4%2F0AY0e-
-			g6UUD1-sMKIpsxzb520ZVflKe7i8xD_oQk6X3t_fjDqhaROnrJncgGX7dEF0jl
-			lVg&client_id=692183103107-p0m7ent2hk7suguv4vq22hjcfhcr43pj.
-			apps.googleusercontent.com&client_secret=erZOWM9g3UtwNRj
-			340YYaK_W&redirect_uri=https://rahulshettyacademy.com/getCourse
-			.php&grant_type=authorization_code#"
+			"https://www.googleapis.com/oauth2/v4/token?code={{code_to_get_access_token}}&client_id=692183103107-p0m7ent2hk7suguv4vq22hjcfhcr43pj.apps.googleusercontent.com&client_secret=erZOWM9g3UtwNRj340YYaK_W&redirect_uri=https://rahulshettyacademy.com/getCourse.php&grant_type=authorization_code#"
 
 
 			Now, in code put the global variable "code_to_get_access_token"
